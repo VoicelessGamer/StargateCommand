@@ -1,0 +1,22 @@
+{
+  "weaponDefinitions": [
+    {
+      "name": "MP5",
+      "minimumDamage": 1.0,
+	  "maximumDamage": 5.0,
+	  "type": 0
+    },
+    {
+      "name": "MP7",
+      "minimumDamage": 1.5,
+	  "maximumDamage": 5.5,
+	  "type": 0
+    },
+    {
+      "name": "Zat'nik'tel",
+      "minimumDamage": 1.0,
+	  "maximumDamage": 3.0,
+	  "type": 1
+    }
+  ]
+}
