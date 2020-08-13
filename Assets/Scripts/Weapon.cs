@@ -16,7 +16,7 @@ public class Weapon {
         this.weaponDefinition = weaponDefinition;
     }
 
-    public string getWeaponDetails() {
-        return "Name: " + this.name + ", Damage: " + this.damage + ", Weapon Definition: { " + this.weaponDefinition.getWeaponDetails() + " }";
+    public override string ToString() {
+        return "Name: " + this.name + ", Damage: " + this.damage + ", Weapon Definition: { " + this.weaponDefinition.ToString() + " }";
     }
 }

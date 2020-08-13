@@ -1,5 +1,5 @@
 ﻿[System.Serializable]
-public class WeaponDefinition {
+public class WeaponDefinition: RarityObject {
 
     public enum Type {
         BALLISTIC,
@@ -13,8 +13,8 @@ public class WeaponDefinition {
     public double maximumDamage;
 
     public Type type;
-
-    public string getWeaponDetails() {
-        return "Name: " + this.name + ", Minimum Damage: " + this.minimumDamage + ", Maximum Damage: " + this.maximumDamage + ", Type: " + this.type.ToString();
+        
+    public override string ToString() {
+        return "Name: " + this.name + ", Minimum Damage: " + this.minimumDamage + ", Maximum Damage: " + this.maximumDamage + ", Type: " + this.type.ToString() + ", " + base.ToString();
     }
 }

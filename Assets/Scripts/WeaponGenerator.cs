@@ -17,7 +17,7 @@ public class WeaponGenerator : MonoBehaviour {
         random = new System.Random();
 
         for (int i = 0; i < 10; i++) {
-            Debug.Log(generateRandomWeapon(weaponDefinitions.weaponDefinitions[random.Next(0, weaponDefinitions.weaponDefinitions.Length)]).getWeaponDetails());
+            Debug.Log(generateRandomWeapon(weaponDefinitions.weaponDefinitions[random.Next(0, weaponDefinitions.weaponDefinitions.Length)]).ToString());
         }
     }
 
