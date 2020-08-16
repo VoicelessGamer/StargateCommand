@@ -1,0 +1,496 @@
+{
+	"weaponDefinitions": {
+		"ballistic_main_weapons": {
+			"assault_rifles": {
+				"COMMON": [
+					{
+						"value": {
+							"name": "M16A3",
+							"minimumDamage": 1.0,
+							"maximumDamage": 5.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 0
+						},
+						"weight": 100
+					}
+				],
+				"UNCOMMON": [
+					{
+						"value": {
+							"name": "M16A3",
+							"minimumDamage": 2.0,
+							"maximumDamage": 6.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 1
+						},
+						"weight": 100
+					}
+				],
+				"RARE": [
+					{
+						"value": {
+							"name": "M16A3",
+							"minimumDamage": 3.0,
+							"maximumDamage": 7.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 2
+						},
+						"weight": 100
+					}
+				],
+				"VERY_RARE": [
+					{
+						"value": {
+							"name": "M16A3",
+							"minimumDamage": 5.0,
+							"maximumDamage": 9.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 3
+						},
+						"weight": 100
+					}
+				],
+				"LEGENDARY": [
+					{
+						"value": {
+							"name": "M16A3",
+							"minimumDamage": 7.0,
+							"maximumDamage": 11.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 4
+						},
+						"weight": 100
+					}
+				]
+			},
+			"sub_machine_guns": {
+				"COMMON": [
+					{
+						"value": {
+							"name": "MP5",
+							"minimumDamage": 1.0,
+							"maximumDamage": 5.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 0
+						},
+						"weight": 100
+					}
+				],
+				"UNCOMMON": [
+					{
+						"value": {
+							"name": "MP5",
+							"minimumDamage": 2.0,
+							"maximumDamage": 6.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 1
+						},
+						"weight": 100
+					},
+					{
+						"value": {
+							"name": "MP7",
+							"minimumDamage": 2.5,
+							"maximumDamage": 5.5,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 1
+						},
+						"weight": 100
+					}
+				],
+				"RARE": [
+					{
+						"value": {
+							"name": "MP5",
+							"minimumDamage": 3.0,
+							"maximumDamage": 7.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 2
+						},
+						"weight": 100
+					},
+					{
+						"value": {
+							"name": "MP7",
+							"minimumDamage": 3.5,
+							"maximumDamage": 6.5,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 2
+						},
+						"weight": 100
+					}
+				],
+				"VERY_RARE": [
+					{
+						"value": {
+							"name": "MP5",
+							"minimumDamage": 4.0,
+							"maximumDamage": 8.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 3
+						},
+						"weight": 100
+					},
+					{
+						"value": {
+							"name": "MP7",
+							"minimumDamage": 4.5,
+							"maximumDamage": 7.5,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 3
+						},
+						"weight": 100
+					}
+				],
+				"LEGENDARY": [
+					{
+						"value": {
+							"name": "MP5",
+							"minimumDamage": 5.0,
+							"maximumDamage": 9.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 4
+						},
+						"weight": 100
+					},
+					{
+						"value": {
+							"name": "MP7",
+							"minimumDamage": 5.5,
+							"maximumDamage": 8.5,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 4
+						},
+						"weight": 100
+					}
+				]
+			},
+			"shotguns": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"snipers": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"light_machine_guns": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"rocket_launchers": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			}
+		},
+		"ballistic_sidearms": {
+			"pistols": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			}
+		},
+		"energy_main_weapons": {
+			"random": {
+				"COMMON": [
+					{
+						"value": {
+							"name": "Particle Magnum",
+							"minimumDamage": 2.0,
+							"maximumDamage": 7.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 0
+						},
+						"weight": 100
+					}
+				],
+				"UNCOMMON": [
+					{
+						"value": {
+							"name": "Particle Magnum",
+							"minimumDamage": 3.0,
+							"maximumDamage": 8.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 1
+						},
+						"weight": 100
+					}
+				],
+				"RARE": [
+					{
+						"value": {
+							"name": "Particle Magnum",
+							"minimumDamage": 4.0,
+							"maximumDamage": 9.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 2
+						},
+						"weight": 100
+					}
+				],
+				"VERY_RARE": [
+					{
+						"value": {
+							"name": "Particle Magnum",
+							"minimumDamage": 6.0,
+							"maximumDamage": 11.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 3
+						},
+						"weight": 100
+					}
+				],
+				"LEGENDARY": [
+					{
+						"value": {
+							"name": "Particle Magnum",
+							"minimumDamage": 8.0,
+							"maximumDamage": 13.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 4
+						},
+						"weight": 100
+					}
+				]
+			},
+			"jaffa": {
+				"COMMON": [
+					{
+						"value": {
+							"name": "Ma'Tok Staff",
+							"minimumDamage": 4.0,
+							"maximumDamage": 12.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 0
+						},
+						"weight": 100
+					}
+				],
+				"UNCOMMON": [
+					{
+						"value": {
+							"name": "Ma'Tok Staff",
+							"minimumDamage": 5.0,
+							"maximumDamage": 13.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 1
+						},
+						"weight": 100
+					}
+				],
+				"RARE": [
+					{
+						"value": {
+							"name": "Ma'Tok Staff",
+							"minimumDamage": 6.0,
+							"maximumDamage": 14.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 2
+						},
+						"weight": 100
+					}
+				],
+				"VERY_RARE": [
+					{
+						"value": {
+							"name": "Ma'Tok Staff",
+							"minimumDamage": 8.0,
+							"maximumDamage": 16.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 3
+						},
+						"weight": 100
+					}
+				],
+				"LEGENDARY": [
+					{
+						"value": {
+							"name": "Ma'Tok Staff",
+							"minimumDamage": 12.0,
+							"maximumDamage": 20.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 4
+						},
+						"weight": 100
+					}
+				]
+			},
+			"ori": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"sodan": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"wraith": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},		
+			"replicator_disruptor": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},	
+			"x-699": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			}
+		},
+		"energy_sidearms": {
+			"random": {
+				"COMMON": [
+					{
+						"value": {
+							"name": "Zat'nik'tel",
+							"minimumDamage": 2.0,
+							"maximumDamage": 7.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 0
+						},
+						"weight": 100
+					}
+				],
+				"UNCOMMON": [
+					{
+						"value": {
+							"name": "Zat'nik'tel",
+							"minimumDamage": 3.0,
+							"maximumDamage": 8.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 1
+						},
+						"weight": 100
+					}
+				],
+				"RARE": [
+					{
+						"value": {
+							"name": "Zat'nik'tel",
+							"minimumDamage": 4.0,
+							"maximumDamage": 9.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 2
+						},
+						"weight": 100
+					}
+				],
+				"VERY_RARE": [
+					{
+						"value": {
+							"name": "Zat'nik'tel",
+							"minimumDamage": 6.0,
+							"maximumDamage": 11.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 3
+						},
+						"weight": 100
+					}
+				],
+				"LEGENDARY": [
+					{
+						"value": {
+							"name": "Zat'nik'tel",
+							"minimumDamage": 8.0,
+							"maximumDamage": 13.0,
+							"weaponType": 0,
+							"damageType": 1,
+							"rarity": 4
+						},
+						"weight": 100
+					}
+				]
+			},
+			"jaffa": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"ori": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"tollan": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},
+			"wraith": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			},	
+			"kull": {
+				"COMMON": [],
+				"UNCOMMON": [],
+				"RARE": [],
+				"VERY_RARE": [],
+				"LEGENDARY": []
+			}
+		}
+	}
+}

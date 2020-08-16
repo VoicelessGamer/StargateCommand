@@ -1,0 +1,61 @@
+{
+	"definitions": {
+		"jaffa": {
+			"lootDrops": 3,
+			"lootDropTypeWeights": [
+				{
+					"value": "ballistic_main_weapons",
+					"weight": 25
+				},
+				{
+					"value": "energy_main_weapons",
+					"weight": 75
+				}
+			],
+			"lootDropGroupWeights": {
+				"ballistic_main_weapons": [
+					{
+						"value": "assault_rifles",
+						"weight": 25
+					},
+					{
+						"value": "sub_machine_guns",
+						"weight": 25
+					}
+				],
+				"energy_main_weapons": [
+					{
+						"value": "random",
+						"weight": 25
+					},
+					{
+						"value": "jaffa",
+						"weight": 75
+					}
+				]
+			},
+			"rarityWeights": [
+				{
+					"value": "COMMON",
+					"weight": 80
+				},			
+				{
+					"value": "UNCOMMON",
+					"weight": 10
+				},			
+				{
+					"value": "RARE",
+					"weight": 5
+				},			
+				{
+					"value": "VERY_RARE",
+					"weight": 3
+				},			
+				{
+					"value": "LEGENDARY",
+					"weight": 2
+				}
+			]
+		}
+	}
+}
