@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Keyboard : MonoBehaviour {
     private List<GameObject> glyphKeys;
@@ -17,24 +18,24 @@ public class Keyboard : MonoBehaviour {
 
     public void unlockAllGlyphs() {
         foreach (GameObject go in glyphKeys) {
-            go.SetActive(true);
+            go.GetComponent<Button>().interactable = true;
         }
     }
 
     public void lockAllGlyphs() {
         foreach (GameObject go in glyphKeys) {
-            go.SetActive(false);
+            go.GetComponent<Button>().interactable = false;
         }
     }
     public void unlockGlyph(int index) {
-        if(index > 0 && index < glyphKeys.Count) {
-            glyphKeys[index].SetActive(true);
+        if(index >= 0 && index < glyphKeys.Count) {
+            glyphKeys[index].GetComponent<Button>().interactable = true;
         }
     }
 
     public void lockGlyph(int index) {
-        if (index > 0 && index < glyphKeys.Count) {
-            glyphKeys[index].SetActive(false);
+        if (index >= 0 && index < glyphKeys.Count) {
+            glyphKeys[index].GetComponent<Button>().interactable = false;
         }
     }
 }

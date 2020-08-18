@@ -17,8 +17,11 @@ public class AddressInput : MonoBehaviour {
 
     private int[] address;
 
+    private int originSymbolIndex = 0;
+
     // Start is called before the first frame update
     void Start() {
+        address = new int[maxAddressSymbols];
         clearAddress();
     }
 
@@ -45,9 +48,34 @@ public class AddressInput : MonoBehaviour {
 
     public void clearAddress() {
         activeSelection = 0;
-        address = new int[maxAddressSymbols];
         for (int i = 0; i < address.Length; i++) {
-            address[i] = -1;
+            if(address[i] != -1) {
+                keyboard.unlockGlyph(address[i]);
+                address[i] = -1;
+            }
+
+            inputChevrons[i].image.enabled = false;
         }
+    }
+
+    public int[] retrieveAddress() {
+        if(validateAddress()) {
+            return address;
+        }
+        return null;
+    }
+
+    public bool validateAddress() {
+        for (int i = 0; i < address.Length; i++) {
+            if (address[i] == -1) {
+                return false;
+            }
+
+            if(i == address.Length - 1 && address[i] != originSymbolIndex) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
