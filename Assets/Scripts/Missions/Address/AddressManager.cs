@@ -38,7 +38,7 @@ namespace Missions.Address {
         public bool validateAddress(int[] address) {
             for (int i = 0; i < address.Length; i++) {
                 //check that all ids in the address are valid
-                if (address[i] > -1 && address[i] <= maxSymbolIndex) {
+                if (address[i] < 0 || address[i] > maxSymbolIndex) {
                     return false;
                 }
             }
