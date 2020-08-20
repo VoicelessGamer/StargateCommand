@@ -1,0 +1,44 @@
+{
+	"environmentStateWeights": [
+		{
+			"value": "NORMAL",
+			"weight": 999
+		},
+		{
+			"value": "TOXIC",
+			"weight": 1
+		},
+		{
+			"value": "SCORCHED",
+			"weight": 1
+		},
+		{
+			"value": "FROZEN",
+			"weight": 1
+		},
+		{
+			"value": "VACUUM",
+			"weight": 1
+		}
+	],
+	"occupyingRaceWeights": [	
+		{
+			"value": true,
+			"weight": 1
+		},
+		{
+			"value": false,
+			"weight": 1
+		}
+	],
+	"raceWeights": [
+		{
+			"value": "JAFFA",
+			"weight": 1
+		},
+		{
+			"value": "GOAULD",
+			"weight": 1
+		}
+	]
+}

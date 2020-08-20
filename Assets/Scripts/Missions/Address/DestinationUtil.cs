@@ -3,30 +3,34 @@ using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
 using Definitions.Destinations;
+using Definitions.Races;
+using Core;
 
 namespace Missions.Address {
     public static class DestinationUtil {
         private static string knownAddressFilePath = "/KnownAddressData.json";
 
+        private static string destinationsProfileFilePath = "/Json/DestinationProfile";
+
         //array of all the characters that can be used in creating a random planet designation
         private static string[] designationCharacters = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
-        public static DestinationDefinition getDestinationData(int[] address) {
-            Destinations destinations;
-            DestinationDefinition destinationDefinition;
+        public static DestinationDetails getDestinationData(int[] address) {
+            ValidDestinations destinations;
+            DestinationDetails destinationDetails;
 
             //check the persistent data folder for the known address json
             if (!File.Exists(Application.persistentDataPath + knownAddressFilePath)) {
                 //file does not exist
 
                 //create a new destinations object
-                destinations = new Destinations();
+                destinations = new ValidDestinations();
 
                 //generate a new set of destination details for the given address
-                destinationDefinition = generateDestinationDefinition(address);
+                destinationDetails = generateDestinationDetails(generateDestinationDefinition());
 
                 //store the newly generated details under a string converted address key in the new destinations object
-                destinations.addDestinationData(convertAddressToStringKey(address), destinationDefinition);
+                destinations.addDestinationData(convertAddressToStringKey(address), destinationDetails);
 
                 //serialize the destinations object to a string
                 string destinationJson = JsonConvert.SerializeObject(destinations, Formatting.None);
@@ -35,25 +39,25 @@ namespace Missions.Address {
                 File.WriteAllText(Application.persistentDataPath + knownAddressFilePath, destinationJson);
 
                 //return the new details
-                return destinationDefinition;
+                return destinationDetails;
             }
 
             //file exists, load text into a string
             string storedString = File.ReadAllText(Application.persistentDataPath + knownAddressFilePath);
             
             //deserialize the string into a destinations object
-            destinations = JsonConvert.DeserializeObject<Destinations>(storedString);
+            destinations = JsonConvert.DeserializeObject<ValidDestinations>(storedString);
 
             //using a string converted address key get the destination details
-            destinationDefinition = destinations.getDestinationData(convertAddressToStringKey(address));
+            destinationDetails = destinations.getDestinationData(convertAddressToStringKey(address));
 
             //if the data returned is null generate new details
-            if (destinationDefinition == null) {
+            if (destinationDetails == null) {
                 //generate a new set of destination details for the given address
-                destinationDefinition = generateDestinationDefinition(address);
+                destinationDetails = generateDestinationDetails(generateDestinationDefinition());
 
                 //store the newly generated details under a string converted address key in the new destinations object
-                destinations.addDestinationData(convertAddressToStringKey(address), destinationDefinition);
+                destinations.addDestinationData(convertAddressToStringKey(address), destinationDetails);
 
                 //serialize the destinations object to a string
                 string destinationJson = JsonConvert.SerializeObject(destinations, Formatting.None);
@@ -62,11 +66,44 @@ namespace Missions.Address {
                 File.WriteAllText(Application.persistentDataPath + knownAddressFilePath, destinationJson);
             }
 
-            return destinationDefinition;
+            return destinationDetails;
         }
 
-        private static DestinationDefinition generateDestinationDefinition(int[] address) {
-            return new DestinationDefinition(generateRandomDesignation(), address);
+        private static DestinationDetails generateDestinationDetails(DestinationDefinition destinationDefinition) {
+            if(destinationDefinition.environmentState == DestinationDefinition.EnvironmentState.NORMAL) {
+                //load the destination profile into a text object
+                TextAsset destinationProfileJson = Resources.Load<TextAsset>(destinationsProfileFilePath);
+
+                //deserialize the destination profile json into an object
+                DestinationProfile destinationProfile = JsonConvert.DeserializeObject<DestinationProfile>(destinationProfileJson.text);
+
+                //check if destination is occupied
+                if (((WeightedBool)WeightedValueSelector.selectValue(destinationProfile.occupyingRaceWeights)).value) {
+
+                    //randomly select an environment type for the destination
+                    RaceDefinitions.Race race = ((WeightedRace)WeightedValueSelector.selectValue(destinationProfile.raceWeights)).value;
+
+                    return new DestinationDetails(destinationDefinition, race);
+                }
+
+                return new DestinationDetails(destinationDefinition);
+            } else {
+                //new destination without occupying race
+                return new DestinationDetails(destinationDefinition);
+            }
+        }
+
+        private static DestinationDefinition generateDestinationDefinition() {
+            //load the destination profile into a text object
+            TextAsset destinationProfileJson = Resources.Load<TextAsset>(destinationsProfileFilePath);
+
+            //deserialize the destination profile json into an object
+            DestinationProfile destinationProfile = JsonConvert.DeserializeObject<DestinationProfile>(destinationProfileJson.text);
+
+            //randomly select an environment type for the destination
+            DestinationDefinition.EnvironmentState environmentState = ((WeightedEnvironmentState)WeightedValueSelector.selectValue(destinationProfile.environmentStateWeights)).value;
+
+            return new DestinationDefinition(generateRandomDesignation(), environmentState);
         }
 
         private static string generateRandomDesignation() {
@@ -99,7 +136,7 @@ namespace Missions.Address {
             }
 
             //add last index to string
-            key += address[address.Length - 1];
+            //key += address[address.Length - 1];
 
             return key;
         }

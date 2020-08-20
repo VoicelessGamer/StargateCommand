@@ -2,25 +2,25 @@
     [System.Serializable]
     public class DestinationDefinition {
 
+        public enum EnvironmentState {
+            NORMAL,
+            TOXIC,
+            SCORCHED,
+            FROZEN,
+            VACUUM
+        }
+        
         public string designation;
 
-        public int[] address;
+        public EnvironmentState environmentState;
 
-        public DestinationDefinition(string designation, int[] address) {
+        public DestinationDefinition(string designation, EnvironmentState environmentState) {
             this.designation = designation;
-            this.address = address;
+            this.environmentState = environmentState;
         }
 
         public override string ToString() {
-            string str = "Designation: " + this.designation + ", Address: [";
-
-            for (int i = 0; i < address.Length - 1; i++) {
-                str += address[i] + ", ";
-            }
-
-            str += address[address.Length - 1] + "]";
-
-            return str;
+            return "Designation: " + this.designation + ", Environment State: " + this.environmentState.ToString();
         }
     }
 }

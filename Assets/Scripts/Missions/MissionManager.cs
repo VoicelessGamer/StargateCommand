@@ -9,7 +9,7 @@ namespace Missions {
         public AddressManager addressManager;
 
         public void generateNewMission() {
-            DestinationDefinition destinationDetails = addressManager.getDestinationDetails();
+            DestinationDetails destinationDetails = addressManager.getDestinationDetails();
 
             MissionUtil.generateNewMission(MissionDefinitions.MissionType.EXPLORATION);
         }

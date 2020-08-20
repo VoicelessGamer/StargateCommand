@@ -12,7 +12,7 @@ namespace Missions.Address {
         //last index a symbol in the address can be
         private int maxSymbolIndex = 38;
 
-        public DestinationDefinition getDestinationDetails() {
+        public DestinationDetails getDestinationDetails() {
             /*int[] address = addressInput.getAddress();
 
             if(address == null) {
@@ -22,17 +22,17 @@ namespace Missions.Address {
 
             int[] address = DestinationUtil.generateRandomAddress(7);
 
-            //check the address is a valide selection
+            //check the address is a valid selection
             if (!validateAddress(address)) {
                 return null;
             }
 
             //retrieve the destination details for the given address
-            DestinationDefinition destinationDefinition = DestinationUtil.getDestinationData(address);
+            DestinationDetails destinationDetails = DestinationUtil.getDestinationData(address);
 
-            Debug.Log(destinationDefinition.ToString());
+            Debug.Log(destinationDetails.ToString());
 
-            return destinationDefinition;
+            return destinationDetails;
         }
 
         public bool validateAddress(int[] address) {

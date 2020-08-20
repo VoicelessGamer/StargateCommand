@@ -2,21 +2,21 @@
 
 namespace Definitions.Destinations {
     [System.Serializable]
-    public class Destinations {
+    public class ValidDestinations {
         //key = stringified representation of the address
         //value = details regarding the destination at given address
-        public Dictionary<string, DestinationDefinition> destinations;
+        public Dictionary<string, DestinationDetails> destinations;
 
-        public Destinations() {
-            destinations = new Dictionary<string, DestinationDefinition>();
+        public ValidDestinations() {
+            destinations = new Dictionary<string, DestinationDetails>();
         }
 
-        public void addDestinationData(string addressKey, DestinationDefinition destinationDefinition) {
+        public void addDestinationData(string addressKey, DestinationDetails destinationDetails) {
             //adds a new record of destination details
-            destinations[addressKey] = destinationDefinition;
+            destinations[addressKey] = destinationDetails;
         }
 
-        public DestinationDefinition getDestinationData(string addressKey) {
+        public DestinationDetails getDestinationData(string addressKey) {
             //check if the address key exists
             if (destinations.ContainsKey(addressKey)) {
                 //return the resulting details
