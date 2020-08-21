@@ -2,6 +2,19 @@
 
     public class MissionDefinition {
 
+        public enum MissionType {
+            EXPLORATION,
+            RECON,
+            ASSAULT,
+            DEFENCE,
+            NEGOTIATION,
+            CAPTURE,
+            EXTRACTION,
+            RESEARCH
+        }
+
+        public MissionType missionType;
+
         //mission time in seconds
         public long baseMissionTime;
 

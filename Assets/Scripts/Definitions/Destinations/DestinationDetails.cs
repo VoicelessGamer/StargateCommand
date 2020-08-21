@@ -4,22 +4,17 @@ namespace Definitions.Destinations {
     [System.Serializable]
     public class DestinationDetails {
 
-        public RaceDefinitions.Race? occupyingRace;
+        public RaceDefinitions.Race governingRace;
 
         public DestinationDefinition destinationDefinition;
 
-        public DestinationDetails(DestinationDefinition destinationDefinition) {
+        public DestinationDetails(DestinationDefinition destinationDefinition, RaceDefinitions.Race governingRace) {
             this.destinationDefinition = destinationDefinition;
-            this.occupyingRace = null;
-        }
-
-        public DestinationDetails(DestinationDefinition destinationDefinition, RaceDefinitions.Race occupyingRace) {
-            this.destinationDefinition = destinationDefinition;
-            this.occupyingRace = occupyingRace;
+            this.governingRace = governingRace;
         }
 
         public override string ToString() {
-            return "Occupying Race: " + this.occupyingRace + ", Destination Definition: { " + this.destinationDefinition.ToString() + "}";
+            return "Governing Race: " + this.governingRace + ", Destination Definition: { " + this.destinationDefinition.ToString() + "}";
         }
     }
 }

@@ -2,17 +2,7 @@
 
 namespace Definitions.Missions {
     public class MissionDefinitions {
-        public enum MissionType {
-            EXPLORATION,
-            RECON,
-            ASSAULT,
-            DEFENCE,
-            NEGOTIATION,
-            CAPTURE,
-            EXTRACTION,
-            RESEARCH
-        }
 
-        public Dictionary<MissionType, MissionDefinition> definitions;
+        public Dictionary<MissionDefinition.MissionType, MissionDefinition> definitions;
     }
 }

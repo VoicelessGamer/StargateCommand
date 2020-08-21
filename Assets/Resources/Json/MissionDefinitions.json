@@ -1,34 +1,42 @@
 {
 	"definitions": {
 		"EXPLORATION": {
+			"missionType": 0,
 			"baseMissionTime": 30,
 			"basePassRate": 0.75
 		},
         "RECON": {
+			"missionType": 1,
 			"baseMissionTime": 60,
 			"basePassRate": 0.95
 		},
         "ASSAULT": {
+			"missionType": 2,
 			"baseMissionTime": 30,
 			"basePassRate": 0.5
 		},
         "DEFENCE": {
+			"missionType": 3,
 			"baseMissionTime": 30,
 			"basePassRate": 0.4
 		},
         "NEGOTIATION": {
+			"missionType": 4,
 			"baseMissionTime": 30,
 			"basePassRate": 0.2
 		},
         "CAPTURE": {
+			"missionType": 5,
 			"baseMissionTime": 30,
 			"basePassRate": 0.2
 		},
         "EXTRACTION": {
+			"missionType": 6,
 			"baseMissionTime": 30,
 			"basePassRate": 0.5
 		},
         "RESEARCH": {
+			"missionType": 7,
 			"baseMissionTime": 30,
 			"basePassRate": 1.0
 		}

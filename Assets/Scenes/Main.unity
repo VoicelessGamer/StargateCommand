@@ -940,6 +940,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   addressManager: {fileID: 1000764395}
+  availableMissionPanel: {fileID: 4464344930106972315, guid: c77f40f510884ea469e351922465444c,
+    type: 3}
+  canvas: {fileID: 1415618929}
 --- !u!4 &383335053
 Transform:
   m_ObjectHideFlags: 0
@@ -2677,8 +2680,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -130}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -290.3, y: 59.2}
+  m_SizeDelta: {x: 179.41599, y: 43.59439}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863749648
 MonoBehaviour:
@@ -6021,11 +6024,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 19
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 51
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

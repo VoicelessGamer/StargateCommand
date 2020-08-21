@@ -10,7 +10,7 @@ namespace Missions.Address {
     public static class DestinationUtil {
         private static string knownAddressFilePath = "/KnownAddressData.json";
 
-        private static string destinationsProfileFilePath = "/Json/DestinationProfile";
+        private static string destinationsProfileFilePath = "Json/DestinationProfile";
 
         //array of all the characters that can be used in creating a random planet designation
         private static string[] designationCharacters = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
@@ -70,7 +70,8 @@ namespace Missions.Address {
         }
 
         private static DestinationDetails generateDestinationDetails(DestinationDefinition destinationDefinition) {
-            if(destinationDefinition.environmentState == DestinationDefinition.EnvironmentState.NORMAL) {
+            //currently only allowing planets with normal atmospheric environment to have a governing race
+            if (destinationDefinition.environmentState == DestinationDefinition.EnvironmentState.NORMAL) {
                 //load the destination profile into a text object
                 TextAsset destinationProfileJson = Resources.Load<TextAsset>(destinationsProfileFilePath);
 
@@ -85,12 +86,10 @@ namespace Missions.Address {
 
                     return new DestinationDetails(destinationDefinition, race);
                 }
-
-                return new DestinationDetails(destinationDefinition);
-            } else {
-                //new destination without occupying race
-                return new DestinationDetails(destinationDefinition);
             }
+
+            //new destination without occupying race
+            return new DestinationDetails(destinationDefinition, RaceDefinitions.Race.NONE);
         }
 
         private static DestinationDefinition generateDestinationDefinition() {
@@ -128,15 +127,12 @@ namespace Missions.Address {
         }
 
         public static string convertAddressToStringKey(int[] address) {
-            string key = "";
+            string key = "" + address[0];
 
-            //convert the given address to a string with each index separated by a hyphon
-            for (int i = 0; i < address.Length - 1; i++) {
-                key += address[i] + "-";
+            //convert the given address to a string with each index separated by a $ (excudes origin)
+            for (int i = 0; i < address.Length - 2; i++) {
+                key += "$" + address[i];
             }
-
-            //add last index to string
-            //key += address[address.Length - 1];
 
             return key;
         }

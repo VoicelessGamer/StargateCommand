@@ -3,6 +3,8 @@
 namespace Definitions.Races {
     public class RaceDefinitions {
         public enum Race {
+            NONE,
+            HUMAN,
             JAFFA,
             GOAULD,
             ABYDONIANS,

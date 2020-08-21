@@ -2,17 +2,21 @@
 
     public class RaceDefinition {
 
-        //whether this race is initially hostile to the player
-        public bool hostile;
+        //number representing this race' technology level which can be used in difficulty calculations
+        public int technologyLevel;
 
-        //
-        //public int technologyLevel;
-
-        //
-        //public friendshipThresholds;
+        //list of threshold which determine the player' friendship level with this race
+        public int[] friendshipThresholds;
 
         public override string ToString() {
-            return "Hostile: " + this.hostile;
+            string str = "Technology Level: " + this.technologyLevel + ", Friendship: [";
+            for(int i = 0; i < friendshipThresholds.Length; i++) {
+                str += friendshipThresholds[i];
+                if(i < friendshipThresholds.Length - 1) {
+                    str += ", ";
+                }
+            }
+            return str + "]";
         }
     }
 }

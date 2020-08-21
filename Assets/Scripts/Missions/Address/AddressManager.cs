@@ -30,8 +30,6 @@ namespace Missions.Address {
             //retrieve the destination details for the given address
             DestinationDetails destinationDetails = DestinationUtil.getDestinationData(address);
 
-            Debug.Log(destinationDetails.ToString());
-
             return destinationDetails;
         }
 
