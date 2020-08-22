@@ -2,7 +2,7 @@
 
     public class ActiveMission {
 
-        //mission detailsfor regarding this active mission
+        //mission details for regarding this active mission
         public MissionDetails missionDetails;
 
         //time in utc that the mission will complete

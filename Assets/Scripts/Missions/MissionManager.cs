@@ -4,47 +4,61 @@ using Definitions.Destinations;
 using Definitions.Missions;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Missions {
     public class MissionManager : MonoBehaviour {
+
+        private static string availableMissionsPath = "/AvailableMissions.json";
+
+        private static string activeMissionsPath = "/ActiveMissions.json";
 
         public AddressManager addressManager;
 
         public GameObject availableMissionPanel;
 
-        public Transform canvas;
+        public Transform availableMissionView;
 
         //list of the sprite images in index order
         public List<Sprite> symbolSprites;
 
         private int createdMissions = 0;
 
+        private AvailableMissions availableMissions;
+
+        private void Start() {
+            getAvailableMissions();
+        }
+
         public void generateNewMission() {
             //get the planet information
             DestinationDetails destinationDetails = addressManager.getDestinationDetails();
 
             //generate a new set of mission details
-            MissionDetails missionDetails = MissionUtil.generateNewMission(MissionDefinition.MissionType.EXPLORATION);
+            MissionDetails missionDetails = MissionUtil.generateNewMission(destinationDetails);
 
-            Debug.Log(destinationDetails.ToString());
             Debug.Log(missionDetails.ToString());
 
+            //store the new available mission to json
+            addAvailableMission(missionDetails);
+
             //create a panel displaying the created missions details
-            createAvailableMissionPanel(missionDetails, destinationDetails);
+            createAvailableMissionPanel(missionDetails);
 
             createdMissions++;
         }
 
-        public void createAvailableMissionPanel(MissionDetails missionDetails, DestinationDetails destinationDetails) {
+        public void createAvailableMissionPanel(MissionDetails missionDetails) {
             //converts the string address to an integer array to be used with the sprite list
-            int[] address = DestinationUtil.convertStringKeyToAddress(destinationDetails.destinationDefinition.address);
+            int[] address = DestinationUtil.convertStringKeyToAddress(missionDetails.destinationDetails.destinationDefinition.address);
 
             //temporarily instantiating the new available mission panel in a specific position on screen
-            Transform availablePanel = Instantiate(availableMissionPanel, new Vector3(420, 270 - (140 * createdMissions), 0), Quaternion.identity).transform;
-            availablePanel.SetParent(canvas, false);
+            Transform availablePanel = Instantiate(availableMissionPanel, new Vector3(0, -(140 * createdMissions), 0), Quaternion.identity).transform;
+            availablePanel.SetParent(availableMissionView, false);
 
             //Set the panel title to something meaningful
-            string title = missionDetails.missionDefinition.missionType.ToString() + " on " + destinationDetails.destinationDefinition.designation;
+            string title = missionDetails.missionDefinition.missionType.ToString() + " on " + missionDetails.destinationDetails.destinationDefinition.designation;
             availablePanel.Find("Title").GetComponent<Text>().text = title;
 
             //using the convert string address set all the address symbol images
@@ -77,6 +91,44 @@ namespace Missions {
 
         public void onMissionActivated(MissionDetails missionDetails) {
             Debug.Log(missionDetails.ToString());
+        }
+
+        private void getAvailableMissions() {
+
+            //check the persistent data folder for the available missions json
+            if (!File.Exists(Application.persistentDataPath + availableMissionsPath)) {
+                //file does not exist
+
+                //create a new AvailableMissions object
+                this.availableMissions = new AvailableMissions();
+
+                //save the current available missions object to storage
+                //eventually move this to some type of saving functionality
+                saveAvailableMissions();
+            } else {
+                //file exists, load text into a string
+                string storedString = File.ReadAllText(Application.persistentDataPath + availableMissionsPath);
+
+                //deserialize and return the string into an AvailableMissions object
+                this.availableMissions = JsonConvert.DeserializeObject<AvailableMissions>(storedString);
+            }
+        }
+
+        private void addAvailableMission(MissionDetails missionDetails) {
+            //add details to the AvailableMissions object
+            availableMissions.missions.Add(missionDetails);
+
+            //save the current available missions object to storage
+            //eventually move this to some type of saving functionality
+            saveAvailableMissions();
+        }
+
+        private void saveAvailableMissions() {
+            //serialize the availableMissions object to a string
+            string availableMissionsJson = JsonConvert.SerializeObject(availableMissions, Formatting.None);
+
+            //write string to a new json file in the persistent data folder
+            File.WriteAllText(Application.persistentDataPath + availableMissionsPath, availableMissionsJson);
         }
     }
 }
