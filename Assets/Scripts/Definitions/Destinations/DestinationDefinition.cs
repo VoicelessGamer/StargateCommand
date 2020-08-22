@@ -9,18 +9,21 @@
             FROZEN,
             VACUUM
         }
-        
+
+        public string address;
+
         public string designation;
 
         public EnvironmentState environmentState;
 
-        public DestinationDefinition(string designation, EnvironmentState environmentState) {
+        public DestinationDefinition(string address, string designation, EnvironmentState environmentState) {
+            this.address = address;
             this.designation = designation;
             this.environmentState = environmentState;
         }
 
         public override string ToString() {
-            return "Designation: " + this.designation + ", Environment State: " + this.environmentState.ToString();
+            return "Address: " + this.address + ", Designation: " + this.designation + ", Environment State: " + this.environmentState.ToString();
         }
     }
 }

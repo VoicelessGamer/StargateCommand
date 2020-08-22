@@ -15,9 +15,17 @@ namespace Missions.Address {
         //array of all the characters that can be used in creating a random planet designation
         private static string[] designationCharacters = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
+        //index of the origin symbol (must be last symbol entered)
+        private static int originSymbolIndex = 0;
+
+        //last index a symbol in the address can be
+        private static int maxSymbolIndex = 38;
+
         public static DestinationDetails getDestinationData(int[] address) {
             ValidDestinations destinations;
             DestinationDetails destinationDetails;
+
+            string stringifiedAddress = convertAddressToStringKey(address);
 
             //check the persistent data folder for the known address json
             if (!File.Exists(Application.persistentDataPath + knownAddressFilePath)) {
@@ -27,7 +35,7 @@ namespace Missions.Address {
                 destinations = new ValidDestinations();
 
                 //generate a new set of destination details for the given address
-                destinationDetails = generateDestinationDetails(generateDestinationDefinition());
+                destinationDetails = generateDestinationDetails(generateDestinationDefinition(stringifiedAddress));
 
                 //store the newly generated details under a string converted address key in the new destinations object
                 destinations.addDestinationData(convertAddressToStringKey(address), destinationDetails);
@@ -54,7 +62,7 @@ namespace Missions.Address {
             //if the data returned is null generate new details
             if (destinationDetails == null) {
                 //generate a new set of destination details for the given address
-                destinationDetails = generateDestinationDetails(generateDestinationDefinition());
+                destinationDetails = generateDestinationDetails(generateDestinationDefinition(stringifiedAddress));
 
                 //store the newly generated details under a string converted address key in the new destinations object
                 destinations.addDestinationData(convertAddressToStringKey(address), destinationDetails);
@@ -92,7 +100,7 @@ namespace Missions.Address {
             return new DestinationDetails(destinationDefinition, RaceDefinitions.Race.NONE);
         }
 
-        private static DestinationDefinition generateDestinationDefinition() {
+        private static DestinationDefinition generateDestinationDefinition(string stringifiedAddress) {
             //load the destination profile into a text object
             TextAsset destinationProfileJson = Resources.Load<TextAsset>(destinationsProfileFilePath);
 
@@ -102,7 +110,7 @@ namespace Missions.Address {
             //randomly select an environment type for the destination
             DestinationDefinition.EnvironmentState environmentState = ((WeightedEnvironmentState)WeightedValueSelector.selectValue(destinationProfile.environmentStateWeights)).value;
 
-            return new DestinationDefinition(generateRandomDesignation(), environmentState);
+            return new DestinationDefinition(stringifiedAddress, generateRandomDesignation(), environmentState);
         }
 
         private static string generateRandomDesignation() {
@@ -130,11 +138,26 @@ namespace Missions.Address {
             string key = "" + address[0];
 
             //convert the given address to a string with each index separated by a $ (excudes origin)
-            for (int i = 0; i < address.Length - 2; i++) {
+            for (int i = 1; i < address.Length - 1; i++) {
                 key += "$" + address[i];
             }
 
             return key;
+        }
+
+        public static int[] convertStringKeyToAddress(string addressKey) {
+            string[] splitKey = addressKey.Split('$');
+            int[] address = new int[splitKey.Length + 1];
+
+            //convert all the split values to an int, adding to the address array
+            for (int i = 0; i < splitKey.Length; i++) {
+                address[i] = int.Parse(splitKey[i]);
+            }
+
+            //add the point of origin to the address
+            address[address.Length - 1] = originSymbolIndex;
+
+            return address;
         }
 
         public static int[] generateRandomAddress(int addressSize) {
@@ -158,9 +181,26 @@ namespace Missions.Address {
             }
 
             //add point of origin to end of address
-            address[address.Length - 1] = 0;
+            address[address.Length - 1] = originSymbolIndex;
 
             return address;
+        }
+
+        public static bool validateAddress(int[] address) {
+            for (int i = 0; i < address.Length; i++) {
+                //check that all ids in the address are valid
+                if (address[i] < 0 || address[i] > maxSymbolIndex) {
+                    return false;
+                }
+            }
+
+            //check the last symbol index is the point of origin
+            if (address[address.Length - 1] != originSymbolIndex) {
+                return false;
+            }
+
+            //address is valid
+            return true;
         }
     }
 }
