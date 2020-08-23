@@ -23,12 +23,21 @@ namespace Missions {
         //list of the sprite images in index order
         public List<Sprite> symbolSprites;
 
-        private int createdMissions = 0;
-
         private AvailableMissions availableMissions;
 
         private void Start() {
+            //retrieve all stored avaiable missions
             getAvailableMissions();
+            //add all the current available mission to the view panel
+            initialiseAvailableMissionView();
+        }
+
+        private void initialiseAvailableMissionView() {
+            //add all the current available mission to the view panel
+            for(int i = 0; i < availableMissions.missions.Count; i++) {
+                //create a panel displaying the current missions details
+                createAvailableMissionPanel(availableMissions.missions[i]);
+            }
         }
 
         public void generateNewMission() {
@@ -45,8 +54,6 @@ namespace Missions {
 
             //create a panel displaying the created missions details
             createAvailableMissionPanel(missionDetails);
-
-            createdMissions++;
         }
 
         public void createAvailableMissionPanel(MissionDetails missionDetails) {
@@ -54,7 +61,7 @@ namespace Missions {
             int[] address = DestinationUtil.convertStringKeyToAddress(missionDetails.destinationDetails.destinationDefinition.address);
 
             //temporarily instantiating the new available mission panel in a specific position on screen
-            Transform availablePanel = Instantiate(availableMissionPanel, new Vector3(0, -(140 * createdMissions), 0), Quaternion.identity).transform;
+            Transform availablePanel = Instantiate(availableMissionPanel, Vector3.zero, Quaternion.identity).transform;
             availablePanel.SetParent(availableMissionView, false);
 
             //Set the panel title to something meaningful
