@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
 namespace Missions {
     public class MissionManager : MonoBehaviour {
@@ -19,6 +20,10 @@ namespace Missions {
         public GameObject availableMissionPanel;
 
         public Transform availableMissionView;
+
+        public GameObject activeMissionPanel;
+
+        public Transform activeMissionView;
 
         //list of the sprite images in index order
         public List<Sprite> symbolSprites;
@@ -47,7 +52,7 @@ namespace Missions {
             //generate a new set of mission details
             MissionDetails missionDetails = MissionUtil.generateNewMission(destinationDetails);
 
-            Debug.Log(missionDetails.ToString());
+            //Debug.Log(missionDetails.ToString());
 
             //store the new available mission to json
             addAvailableMission(missionDetails);
@@ -97,7 +102,55 @@ namespace Missions {
         }
 
         public void onMissionActivated(MissionDetails missionDetails) {
-            Debug.Log(missionDetails.ToString());
+
+            //get the current time in UTC
+            DateTime timeNow = DateTime.UtcNow;
+
+            //add the mission time to the current time to get the mission complete time
+            DateTime completionTime = timeNow.AddSeconds(missionDetails.missionTime);
+
+            //create a new panel in the active panel view
+            GameObject activeMissionPanel = createActiveMissionPanel(missionDetails, completionTime);
+
+            //add and set up the active mission objecty
+            ActiveMission activeMission = (ActiveMission)activeMissionPanel.AddComponent(typeof(ActiveMission));
+            activeMission.initialise(missionDetails, completionTime);
+
+            Debug.Log(activeMission.ToString());
+        }
+
+        public GameObject createActiveMissionPanel(MissionDetails missionDetails, DateTime completionTime) {
+            //converts the string address to an integer array to be used with the sprite list
+            int[] address = DestinationUtil.convertStringKeyToAddress(missionDetails.destinationDetails.destinationDefinition.address);
+
+            //temporarily instantiating the new active mission panel in a specific position on screen
+            Transform activePanel = Instantiate(activeMissionPanel, Vector3.zero, Quaternion.identity).transform;
+            activePanel.SetParent(activeMissionView, false);
+
+            //Set the panel title to something meaningful
+            string title = missionDetails.missionDefinition.missionType.ToString() + " on " + missionDetails.destinationDetails.destinationDefinition.designation;
+            activePanel.Find("Title").GetComponent<Text>().text = title;
+
+            //using the convert string address set all the address symbol images
+            activePanel.Find("Symbol1").GetComponent<Image>().sprite = symbolSprites[address[0]];
+            activePanel.Find("Symbol2").GetComponent<Image>().sprite = symbolSprites[address[1]];
+            activePanel.Find("Symbol3").GetComponent<Image>().sprite = symbolSprites[address[2]];
+            activePanel.Find("Symbol4").GetComponent<Image>().sprite = symbolSprites[address[3]];
+            activePanel.Find("Symbol5").GetComponent<Image>().sprite = symbolSprites[address[4]];
+            activePanel.Find("Symbol6").GetComponent<Image>().sprite = symbolSprites[address[5]];
+            activePanel.Find("Symbol7").GetComponent<Image>().sprite = symbolSprites[address[6]];
+
+            //set the mission time text on the panel
+            activePanel.Find("MissionTime").GetComponent<Text>().text = completionTime.ToString();
+
+            //set the pass rate text on the panel
+            activePanel.Find("PassRate").GetComponent<Text>().text = "Pass Chance: " + (missionDetails.passRate * 100) + "%";
+
+            //add a new listener to the selection button for the panel which calls the onMissionActivated function
+            //passing in the mission details for this mission
+            //activePanel.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() => { onMissionActivated(activeMission.missionDetails); });
+
+            return activePanel.gameObject;
         }
 
         private void getAvailableMissions() {
