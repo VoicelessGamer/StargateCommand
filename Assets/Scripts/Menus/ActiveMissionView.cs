@@ -16,7 +16,7 @@ namespace Menus {
             activeMissions = GetComponentsInChildren<ActiveMission>();
 
             foreach(ActiveMission mission in activeMissions) {
-                mission.startMission();
+                mission.continueMission();
             }
         }
     }

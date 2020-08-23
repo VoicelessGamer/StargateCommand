@@ -25,7 +25,6 @@ namespace Definitions.Missions {
         IEnumerator missionCountdown() {
             //calculate time remaining from completion time to now
             float remainingTime = (float)(this.completionTime - DateTime.UtcNow).TotalSeconds;
-            Debug.Log("RT: " + remainingTime);
 
             //while the mission has not completed
             while (remainingTime > 0) {
@@ -47,9 +46,12 @@ namespace Definitions.Missions {
 
                 yield return null;
             }
+            
+            //set the remaining time text on the panel
+            timeRemainingText.text = "Mission Complete";
         }
 
-        public void startMission() {
+        public void continueMission() {
             StartCoroutine(missionCountdown());
         }
 
