@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Missions;
 
 namespace Menus {
     public class ActiveMissionView : MonoBehaviour {

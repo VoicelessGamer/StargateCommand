@@ -30,11 +30,18 @@ namespace Missions {
 
         private AvailableMissions availableMissions;
 
+        private ActiveMissions activeMissions;
+
         private void Start() {
             //retrieve all stored avaiable missions
             getAvailableMissions();
             //add all the current available mission to the view panel
             initialiseAvailableMissionView();
+
+            //retrieve all the active mission
+            getActiveMissions();
+            //add all the current active mission to the view panel
+            initialiseActiveMissionView();
         }
 
         private void initialiseAvailableMissionView() {
@@ -42,6 +49,14 @@ namespace Missions {
             for(int i = 0; i < availableMissions.missions.Count; i++) {
                 //create a panel displaying the current missions details
                 createAvailableMissionPanel(availableMissions.missions[i]);
+            }
+        }
+
+        private void initialiseActiveMissionView() {
+            //add all the current active mission to the view panel
+            for (int i = 0; i < activeMissions.missions.Count; i++) {
+                //create a panel displaying the current missions details
+                createActiveMissionPanel(i);
             }
         }
 
@@ -98,10 +113,19 @@ namespace Missions {
 
             //add a new listener to the selection button for the panel which calls the onMissionActivated function
             //passing in the mission details for this mission
-            availablePanel.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() => { onMissionActivated(missionDetails); });
+            availablePanel.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() => { onMissionActivated(missionDetails, availablePanel.gameObject); });
         }
 
-        public void onMissionActivated(MissionDetails missionDetails) {
+        public void onMissionActivated(MissionDetails missionDetails, GameObject availablePanel) {
+
+            //remove the mission from available missions
+            removeAvailableMission(missionDetails);
+
+            //remove the available mission from view
+            Destroy(availablePanel);
+
+            //update the stored available mission json
+            saveAvailableMissions();
 
             //get the current time in UTC
             DateTime timeNow = DateTime.UtcNow;
@@ -109,29 +133,42 @@ namespace Missions {
             //add the mission time to the current time to get the mission complete time
             DateTime completionTime = timeNow.AddSeconds(missionDetails.missionTime);
 
+            //set up the deatils for the active mission (an object that can be serialized)
+            ActiveMissionDetails activeMissionDetails = new ActiveMissionDetails(missionDetails, completionTime);
+
+            //NEED TEAM INDEX BEFORE HERE
+            int teamIndex = activeMissions.missions.Count;
+
+            //add the active mission to storage
+            addActiveMission(teamIndex, activeMissionDetails);
+
+            Debug.Log(activeMissionDetails.ToString());
+
             //create a new panel in the active panel view
-            GameObject activeMissionPanel = createActiveMissionPanel(missionDetails, completionTime);
-
-            //add and set up the active mission objecty
-            ActiveMission activeMission = (ActiveMission)activeMissionPanel.AddComponent(typeof(ActiveMission));
-            activeMission.initialise(missionDetails, completionTime);
-
-            Debug.Log(activeMission.ToString());
+            createActiveMissionPanel(teamIndex);
         }
 
-        public GameObject createActiveMissionPanel(MissionDetails missionDetails, DateTime completionTime) {
+        public void createActiveMissionPanel(int index) {
+            //retrieve the active mission details using the team index
+            ActiveMissionDetails activeMissionDetails = this.activeMissions.missions[index];
+
             //converts the string address to an integer array to be used with the sprite list
-            int[] address = DestinationUtil.convertStringKeyToAddress(missionDetails.destinationDetails.destinationDefinition.address);
+            int[] address = DestinationUtil.convertStringKeyToAddress(activeMissionDetails.missionDetails.destinationDetails.destinationDefinition.address);
 
             //temporarily instantiating the new active mission panel in a specific position on screen
             Transform activePanel = Instantiate(activeMissionPanel, Vector3.zero, Quaternion.identity).transform;
             activePanel.SetParent(activeMissionView, false);
 
+            //add and set up the active mission object
+            ActiveMission activeMission = (ActiveMission)activePanel.gameObject.AddComponent(typeof(ActiveMission));
+            activeMission.initialise(activeMissionDetails);
+
             //Set the panel title to something meaningful
-            string title = missionDetails.missionDefinition.missionType.ToString() + " on " + missionDetails.destinationDetails.destinationDefinition.designation;
+            string title = activeMissionDetails.missionDetails.missionDefinition.missionType.ToString() + " on " + activeMissionDetails.missionDetails.destinationDetails.destinationDefinition.designation;
             activePanel.Find("Title").GetComponent<Text>().text = title;
 
             //using the convert string address set all the address symbol images
+            //possibly change this to be a new compoentn type for the class which sets the images up itself
             activePanel.Find("Symbol1").GetComponent<Image>().sprite = symbolSprites[address[0]];
             activePanel.Find("Symbol2").GetComponent<Image>().sprite = symbolSprites[address[1]];
             activePanel.Find("Symbol3").GetComponent<Image>().sprite = symbolSprites[address[2]];
@@ -140,17 +177,21 @@ namespace Missions {
             activePanel.Find("Symbol6").GetComponent<Image>().sprite = symbolSprites[address[5]];
             activePanel.Find("Symbol7").GetComponent<Image>().sprite = symbolSprites[address[6]];
 
-            //set the mission time text on the panel
-            activePanel.Find("MissionTime").GetComponent<Text>().text = completionTime.ToString();
 
             //set the pass rate text on the panel
-            activePanel.Find("PassRate").GetComponent<Text>().text = "Pass Chance: " + (missionDetails.passRate * 100) + "%";
+            activePanel.Find("PassRate").GetComponent<Text>().text = "Pass Chance: " + (activeMissionDetails.missionDetails.passRate * 100) + "%";
 
             //add a new listener to the selection button for the panel which calls the onMissionActivated function
             //passing in the mission details for this mission
-            //activePanel.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() => { onMissionActivated(activeMission.missionDetails); });
+            activePanel.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() => { onMissionCompleted(index, activePanel.gameObject); });
+        }
 
-            return activePanel.gameObject;
+        public void onMissionCompleted(int index, GameObject activeMissionPanel) {
+            //temporarily just deleted the active mission
+            removeActiveMission(index);
+
+            //remove the ctive mission panel from the view
+            Destroy(activeMissionPanel);
         }
 
         private void getAvailableMissions() {
@@ -183,12 +224,68 @@ namespace Missions {
             saveAvailableMissions();
         }
 
+        private void removeAvailableMission(MissionDetails missionDetails) {
+            //remove details to the AvailableMissions object
+            availableMissions.missions.Remove(missionDetails);
+
+            //save the current available missions object to storage
+            //eventually move this to some type of saving functionality
+            saveAvailableMissions();
+        }
+
         private void saveAvailableMissions() {
             //serialize the availableMissions object to a string
             string availableMissionsJson = JsonConvert.SerializeObject(availableMissions, Formatting.None);
 
             //write string to a new json file in the persistent data folder
             File.WriteAllText(Application.persistentDataPath + availableMissionsPath, availableMissionsJson);
+        }
+
+        private void getActiveMissions() {
+
+            //check the persistent data folder for the active missions json
+            if (!File.Exists(Application.persistentDataPath + activeMissionsPath)) {
+                //file does not exist
+
+                //create a new ActiveMissions object
+                this.activeMissions = new ActiveMissions();
+
+                //save the current active missions object to storage
+                //eventually move this to some type of saving functionality
+                saveActiveMissions();
+            } else {
+                //file exists, load text into a string
+                string storedString = File.ReadAllText(Application.persistentDataPath + activeMissionsPath);
+
+                //deserialize and return the string into an ActiveMissions object
+                this.activeMissions = JsonConvert.DeserializeObject<ActiveMissions>(storedString);
+            }
+        }
+
+        private void addActiveMission(int index, ActiveMissionDetails activeMissionDetails) {
+            //add details to the ActiveMissions object
+            activeMissions.missions.Add(index, activeMissionDetails);
+
+            //save the current active missions object to storage
+            //eventually move this to some type of saving functionality
+            saveActiveMissions();
+        }
+
+        private void removeActiveMission(int index) {
+            //remove details to the ActiveMissions object
+            activeMissions.missions.Remove(index);
+
+            //save the current active missions object to storage
+            //eventually move this to some type of saving functionality
+            saveActiveMissions();
+        }
+
+        private void saveActiveMissions() {
+            //serialize the activeMissions object to a string
+            string activeMissionsJson = JsonConvert.SerializeObject(activeMissions, Formatting.None);
+
+            //write string to a new json file in the persistent data folder
+            File.WriteAllText(Application.persistentDataPath + activeMissionsPath, activeMissionsJson);
         }
     }
 }

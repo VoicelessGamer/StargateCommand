@@ -1068,7 +1068,7 @@ MonoBehaviour:
   availableMissionPanel: {fileID: 7406325113205362399, guid: c77f40f510884ea469e351922465444c,
     type: 3}
   availableMissionView: {fileID: 699029962}
-  activeMissionPanel: {fileID: 7406325113205362399, guid: c77f40f510884ea469e351922465444c,
+  activeMissionPanel: {fileID: 1166615056714085018, guid: 8c20b65fcd790bf4d83514446db79bed,
     type: 3}
   activeMissionView: {fileID: 1410876836}
   symbolSprites:
