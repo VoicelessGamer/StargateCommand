@@ -1,0 +1,84 @@
+{
+	"ranks": {
+		0: {
+			"rankName": "Airman",
+			"abbreviation": "Amn"
+		},
+		1: {
+			"rankName": "Airman First Class",
+			"abbreviation": "A1C"
+		},
+		2: {
+			"rankName": "Senior Airman",
+			"abbreviation": "SrA"
+		},
+		3: {
+			"rankName": "Staff Sergeant",
+			"abbreviation": "SSgt"
+		},
+		4: {
+			"rankName": "Technical Sergeant",
+			"abbreviation": "TSgt"
+		},
+		5: {
+			"rankName": "Master Sergeant",
+			"abbreviation": "MSgt"
+		},
+		6: {
+			"rankName": "Senior Master Sergeant",
+			"abbreviation": "SMSgt"
+		},
+		7: {
+			"rankName": "Chief Master Sergeant",
+			"abbreviation": "CMSgt"
+		},
+		8: {
+			"rankName": "Command Chief Master Sergeant",
+			"abbreviation": "CCM"
+		},
+		9: {
+			"rankName": "Second Lieutenant",
+			"abbreviation": "2d Lt"
+		},
+		10: {
+			"rankName": "First Lieutenant",
+			"abbreviation": "1st L"
+		},
+		11: {
+			"rankName": "Captain",
+			"abbreviation": "Capt"
+		},
+		12: {
+			"rankName": "Major",
+			"abbreviation": "Maj"
+		},
+		13: {
+			"rankName": "Lieutenant Colonel",
+			"abbreviation": "Lt Co"
+		},
+		14: {
+			"rankName": "Colonel",
+			"abbreviation": "Col"
+		},
+		15: {
+			"rankName": "Brigadier General",
+			"abbreviation": "Brig"
+		},
+		16: {
+			"rankName": "Major General",
+			"abbreviation": "Maj G"
+		},
+		17: {
+			"rankName": "Lieutenant General",
+			"abbreviation": "Lt Ge"
+		},
+		18: {
+			"rankName": "General",
+			"abbreviation": "Gen"
+		},
+		19: {
+			"rankName": "General of the Air Force",
+			"abbreviation": "GAF"
+		}
+	}
+}

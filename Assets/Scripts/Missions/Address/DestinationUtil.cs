@@ -13,7 +13,44 @@ namespace Missions.Address {
         private static string destinationsProfileFilePath = "Json/DestinationProfile";
 
         //array of all the characters that can be used in creating a random planet designation
-        private static string[] designationCharacters = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        private static WeightedString[] designationCharacters = new WeightedString[] {
+            new WeightedString("0", 30),
+            new WeightedString("1", 78),
+            new WeightedString("2", 102),
+            new WeightedString("3", 201),
+            new WeightedString("4", 105),
+            new WeightedString("5", 90),
+            new WeightedString("6", 51),
+            new WeightedString("7", 120),
+            new WeightedString("8", 93),
+            new WeightedString("9", 99),
+            new WeightedString("A", 9),
+            new WeightedString("B", 1),
+            new WeightedString("C", 30),
+            new WeightedString("D", 1),
+            new WeightedString("E", 1),
+            new WeightedString("F", 6),
+            new WeightedString("G", 3),
+            new WeightedString("H", 1),
+            new WeightedString("I", 1),
+            new WeightedString("J", 12),
+            new WeightedString("K", 1),
+            new WeightedString("L", 1),
+            new WeightedString("M", 3),
+            new WeightedString("N", 1),
+            new WeightedString("O", 1),
+            new WeightedString("P", 1),
+            new WeightedString("Q", 3),
+            new WeightedString("R", 3),
+            new WeightedString("S", 12),
+            new WeightedString("T", 1),
+            new WeightedString("U", 1),
+            new WeightedString("V", 1),
+            new WeightedString("W", 1),
+            new WeightedString("X", 96),
+            new WeightedString("Y", 3),
+            new WeightedString("Z", 1)
+        };
 
         //index of the origin symbol (must be last symbol entered)
         private static int originSymbolIndex = 0;
@@ -120,7 +157,7 @@ namespace Missions.Address {
 
             //generates 2 random characters
             for (int i = 0; i < 2; i++) {
-                designation += designationCharacters[random.Next(0, designationCharacters.Length)];
+                designation += ((WeightedString)WeightedValueSelector.selectValue(designationCharacters)).value;
             }
 
             //adds hyphon separator
@@ -128,7 +165,7 @@ namespace Missions.Address {
 
             //generates 3 random characters
             for (int i = 0; i < 3; i++) {
-                designation += designationCharacters[random.Next(0, designationCharacters.Length)];
+                designation += ((WeightedString)WeightedValueSelector.selectValue(designationCharacters)).value;
             }
 
             return designation;

@@ -4,7 +4,7 @@ using Definitions.Enemies;
 using Core;
 using Newtonsoft.Json;
 
-namespace Items.ItemGeneration {
+namespace Generation {
     public class RandomLootGenerator {
 
         private static string itemDefinitionPath = "Json/LootDefinitions";
@@ -56,7 +56,7 @@ namespace Items.ItemGeneration {
                 RarityObject.Rarity rarity = ((WeightedRarityObject)WeightedValueSelector.selectValue(definition.rarityWeights)).value;
 
                 //using the randomly selected keys retrieve a weapon definition
-                WeaponDefinition itemDef = ((WeightedWeaponDefinition)WeightedValueSelector.selectValue(lootDefinitions.weaponDefinitions[dropType][dropTypeGroup][rarity])).value;
+                WeaponDefinition itemDef = getWeaponItem(dropType, dropTypeGroup, rarity);
 
                 //add the loot to the loot drop list
                 generatedDefinitions[i] = itemDef;
@@ -64,6 +64,10 @@ namespace Items.ItemGeneration {
 
             //return the list of awarded loot types
             return generatedDefinitions;
+        }
+
+        public WeaponDefinition getWeaponItem(string dropType, string dropTypeGroup, RarityObject.Rarity rarity) {
+            return ((WeightedWeaponDefinition)WeightedValueSelector.selectValue(lootDefinitions.weaponDefinitions[dropType][dropTypeGroup][rarity])).value;
         }
     }
 }
