@@ -13,9 +13,9 @@
             EXPLOSIVE
         }
 
-        public double minimumDamage;
+        public float minimumDamage;
 
-        public double maximumDamage;
+        public float maximumDamage;
 
         public WeaponType weaponType;
 

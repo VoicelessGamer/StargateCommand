@@ -8,7 +8,7 @@ namespace Definitions.People {
 
         public Weapon secondaryWeapon;
 
-        public TeamMember(int rank, string name, Weapon primaryWeapon, Weapon secondaryWeapon): base(rank, name) {
+        public TeamMember(int rank, string forename, string surname, Weapon primaryWeapon, Weapon secondaryWeapon): base(rank, forename, surname) {
             this.primaryWeapon = primaryWeapon;
             this.secondaryWeapon = secondaryWeapon;
         }

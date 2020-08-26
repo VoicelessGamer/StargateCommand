@@ -3,11 +3,11 @@
 
         public string name { get; set; }
 
-        public double damage { get; private set; }
+        public float damage { get; private set; }
 
         public WeaponDefinition weaponDefinition { get; private set; }
 
-        public Weapon(string name, double damage, WeaponDefinition weaponDefinition) {
+        public Weapon(string name, float damage, WeaponDefinition weaponDefinition) {
             this.name = name;
             this.damage = damage;
             this.weaponDefinition = weaponDefinition;

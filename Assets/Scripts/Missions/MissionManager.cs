@@ -80,7 +80,7 @@ namespace Missions {
             //converts the string address to an integer array to be used with the sprite list
             int[] address = DestinationUtil.convertStringKeyToAddress(missionDetails.destinationDetails.destinationDefinition.address);
 
-            //temporarily instantiating the new available mission panel in a specific position on screen
+            //instantiating the new available mission panel and adding to the view
             Transform availablePanel = Instantiate(availableMissionPanel, Vector3.zero, Quaternion.identity).transform;
             availablePanel.SetParent(availableMissionView, false);
 
@@ -155,7 +155,7 @@ namespace Missions {
             //converts the string address to an integer array to be used with the sprite list
             int[] address = DestinationUtil.convertStringKeyToAddress(activeMissionDetails.missionDetails.destinationDetails.destinationDefinition.address);
 
-            //temporarily instantiating the new active mission panel in a specific position on screen
+            //instantiating the new active mission panel and adding to the view
             Transform activePanel = Instantiate(activeMissionPanel, Vector3.zero, Quaternion.identity).transform;
             activePanel.SetParent(activeMissionView, false);
 

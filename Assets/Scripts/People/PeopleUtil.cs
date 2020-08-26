@@ -6,7 +6,7 @@ namespace People {
     public static class PeopleUtil {
         private static string ranksFilePath = "Json/Ranks";
 
-        private static Rank getRankDetails(int rankIndex) {
+        public static Rank getRankDetails(int rankIndex) {
             //load the ranks json object
             TextAsset ranksJson = Resources.Load<TextAsset>(ranksFilePath);
 

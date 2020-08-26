@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Items.ItemGeneration;
+using Generation;
 using Definitions.Items;
 
 namespace Assets.Scripts.Testing {
@@ -23,8 +23,8 @@ namespace Assets.Scripts.Testing {
             WeaponDefinition wd = new WeaponDefinition();
 
             wd.name = "test";
-            wd.minimumDamage = 1.1;
-            wd.maximumDamage = 3.4;
+            wd.minimumDamage = 1.1f;
+            wd.maximumDamage = 3.4f;
             wd.damageType = WeaponDefinition.DamageType.BALLISTIC;
             wd.rarity = RarityObject.Rarity.RARE;
 

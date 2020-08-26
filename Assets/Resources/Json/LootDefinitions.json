@@ -6,7 +6,7 @@
 					{
 						"value": {
 							"name": "M16A3",
-							"minimumDamage": 1.0,
+							"minimumDamage": 2.0,
 							"maximumDamage": 5.0,
 							"weaponType": 0,
 							"damageType": 0,
@@ -210,7 +210,19 @@
 		},
 		"ballistic_sidearms": {
 			"pistols": {
-				"COMMON": [],
+				"COMMON": [
+					{
+						"value": {
+							"name": "M9A1",
+							"minimumDamage": 1.0,
+							"maximumDamage": 2.0,
+							"weaponType": 0,
+							"damageType": 0,
+							"rarity": 0
+						},
+						"weight": 100
+					}
+				],
 				"UNCOMMON": [],
 				"RARE": [],
 				"VERY_RARE": [],
