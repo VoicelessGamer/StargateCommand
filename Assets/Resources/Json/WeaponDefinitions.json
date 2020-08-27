@@ -1,0 +1,130 @@
+{	
+	"definitions": {
+		"M16A3": {
+			"COMMON":  {
+				"name": "M16A3",
+				"minimumDamage": 2.0,
+				"maximumDamage": 5.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 0
+			},
+			"UNCOMMON":  {
+				"name": "M16A3",
+				"minimumDamage": 2.0,
+				"maximumDamage": 6.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 0
+			},
+			"RARE":  {
+				"name": "M16A3",
+				"minimumDamage": 3.0,
+				"maximumDamage": 7.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 2
+			},
+			"VERY_RARE":  {
+				"name": "M16A3",
+				"minimumDamage": 5.0,
+				"maximumDamage": 9.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 3
+			},
+			"LEGENDARY":  {
+				"name": "M16A3",
+				"minimumDamage": 7.0,
+				"maximumDamage": 11.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 4
+			}
+		},
+		"MP5": {
+			"COMMON":  {
+				"name": "MP5",
+				"minimumDamage": 1.0,
+				"maximumDamage": 5.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 0
+			},
+			"UNCOMMON":  {
+				"name": "MP5",
+				"minimumDamage": 2.0,
+				"maximumDamage": 6.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 1
+			},
+			"RARE":  {
+				"name": "MP5",
+				"minimumDamage": 3.0,
+				"maximumDamage": 7.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 2
+			},
+			"VERY_RARE":  {
+				"name": "MP5",
+				"minimumDamage": 4.0,
+				"maximumDamage": 8.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 3
+			},
+			"LEGENDARY":  {
+				"name": "MP5",
+				"minimumDamage": 5.0,
+				"maximumDamage": 9.0,
+				"weaponType": 0,
+				"damageType": 0,
+				"rarity": 4
+			}
+		},
+		"M9A1": {
+			"COMMON":  {
+				"name": "M9A1",
+				"minimumDamage": 1.0,
+				"maximumDamage": 2.0,
+				"weaponType": 1,
+				"damageType": 0,
+				"rarity": 0
+			},
+			"UNCOMMON":  {
+				"name": "M9A1",
+				"minimumDamage": 1.5,
+				"maximumDamage": 2.5,
+				"weaponType": 1,
+				"damageType": 0,
+				"rarity": 1
+			},
+			"RARE":  {
+				"name": "M9A1",
+				"minimumDamage": 2.0,
+				"maximumDamage": 3.0,
+				"weaponType": 1,
+				"damageType": 0,
+				"rarity": 2
+			},
+			"VERY_RARE":  {
+				"name": "M9A1",
+				"minimumDamage": 2.5,
+				"maximumDamage": 3.5,
+				"weaponType": 1,
+				"damageType": 0,
+				"rarity": 3
+			},
+			"LEGENDARY":  {
+				"name": "M9A1",
+				"minimumDamage": 3.0,
+				"maximumDamage": 4.0,
+				"weaponType": 1,
+				"damageType": 0,
+				"rarity": 4
+			}
+		}
+	}
+}

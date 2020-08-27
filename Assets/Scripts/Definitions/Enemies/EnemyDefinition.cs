@@ -1,6 +1,5 @@
 ﻿using Core;
-using Definitions.Items;
-using System.Collections.Generic;
+using Definitions.Weapons;
 
 namespace Definitions.Enemies {
     [System.Serializable]
@@ -9,14 +8,10 @@ namespace Definitions.Enemies {
         //number of drops that could be received from this enemy type
         public int lootDrops;
 
-        //array of the loot drop types such as ballistic_main_weapons or energy_main_weapons etc. weighted by chance of selection
-        public WeightedString[] lootDropTypeWeights;
+        //array of the loot drop types such as weapon or resource etc. weighted by chance of selection
+        public WeightedString[] lootDropTypes;
 
-        //array of the loot drop groups, for each option in the lootDropTypeWeights array, 
-        //such as assault_rifles or random etc. weighted by chance of selection
-        public Dictionary<string, WeightedString[]> lootDropGroupWeights;
-
-        //weighted rarities of loot items for this enemy type
-        public WeightedRarityObject[] rarityWeights;
+        //array of weapon loot definitions containing the information on a weapon id and rarity drop chances
+        public WeaponLootDefinition[] weaponWeights;
     }
 }

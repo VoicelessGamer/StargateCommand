@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Definitions.People;
-using Generation;
-using Definitions.Items;
+using Weapons;
+using Definitions.Weapons;
 using People;
 using UnityEngine.UI;
+using Core;
 
 namespace Missions {
     public class TeamManager : MonoBehaviour {
@@ -21,14 +22,9 @@ namespace Missions {
 
         public void generateNewTeamMember() {
 
-            RandomLootGenerator randomLootGenerator = new RandomLootGenerator();
-
-            WeaponDefinition primaryDefinition = randomLootGenerator.getWeaponItem("ballistic_main_weapons", "assault_rifles", RarityObject.Rarity.COMMON);
-            Weapon primary = new Weapon(primaryDefinition.name, Random.Range(primaryDefinition.minimumDamage, primaryDefinition.maximumDamage), primaryDefinition);
-
-            WeaponDefinition secondaryDefinition = randomLootGenerator.getWeaponItem("ballistic_sidearms", "pistols", RarityObject.Rarity.COMMON);
-            Weapon secondary = new Weapon(secondaryDefinition.name, Random.Range(secondaryDefinition.minimumDamage, secondaryDefinition.maximumDamage), secondaryDefinition);
-
+            WeaponDefinition primary = WeaponUtil.getWeapon("M16A3", RarityObject.Rarity.COMMON);
+            
+            WeaponDefinition secondary = WeaponUtil.getWeapon("M9A1", RarityObject.Rarity.UNCOMMON);
 
             TeamMember teamMember = new TeamMember(Random.Range(0, 20), "Jack", "O'Neil", primary, secondary);
 
@@ -50,10 +46,10 @@ namespace Missions {
             memberPanel.Find("RankImage").GetComponent<Image>().sprite = rankSprites[teamMember.rank];
 
             //set the primary weapon text on the panel
-            memberPanel.Find("PrimaryWeapon").GetComponent<Text>().text = teamMember.primaryWeapon.name + "\n" + teamMember.primaryWeapon.damage;
+            memberPanel.Find("PrimaryWeapon").GetComponent<Text>().text = teamMember.primaryWeapon.name + "\n" + teamMember.primaryWeapon.minimumDamage + " - " + teamMember.primaryWeapon.maximumDamage;
 
             //set the secondary weapon text on the panel
-            memberPanel.Find("SecondaryWeapon").GetComponent<Text>().text = teamMember.secondaryWeapon.name + "\n" + teamMember.secondaryWeapon.damage;
+            memberPanel.Find("SecondaryWeapon").GetComponent<Text>().text = teamMember.secondaryWeapon.name + "\n" + teamMember.secondaryWeapon.minimumDamage + " - " + teamMember.secondaryWeapon.maximumDamage;
 
             //add a new listener to the selection button for the panel which calls the onMissionActivated function
             //passing in the mission details for this mission

@@ -2,60 +2,108 @@
 	"definitions": {
 		"jaffa": {
 			"lootDrops": 3,
-			"lootDropTypeWeights": [
+			"lootDropTypes": [
 				{
-					"value": "ballistic_main_weapons",
+					"value": "WEAPON",
+					"weight": 50
+				},
+				{
+					"value": "ARMOUR",
+					"weight": 5
+				},
+				{
+					"value": "INTEL",
+					"weight": 1
+				},
+				{
+					"value": "RESOURCE",
+					"weight": 30
+				},
+				{
+					"value": "NONE",
+					"weight": 50
+				}
+			],
+			"weaponWeights": [
+				{
+					"name": "M16A3",
+					"rarityWeights": [
+						{
+							"value": "COMMON",
+							"weight": 80
+						},			
+						{
+							"value": "UNCOMMON",
+							"weight": 10
+						},			
+						{
+							"value": "RARE",
+							"weight": 5
+						},			
+						{
+							"value": "VERY_RARE",
+							"weight": 3
+						},			
+						{
+							"value": "LEGENDARY",
+							"weight": 2
+						}
+					],
 					"weight": 25
 				},
 				{
-					"value": "energy_main_weapons",
-					"weight": 75
+					"name": "MP5",
+					"rarityWeights": [
+						{
+							"value": "COMMON",
+							"weight": 80
+						},			
+						{
+							"value": "UNCOMMON",
+							"weight": 10
+						},			
+						{
+							"value": "RARE",
+							"weight": 5
+						},			
+						{
+							"value": "VERY_RARE",
+							"weight": 3
+						},			
+						{
+							"value": "LEGENDARY",
+							"weight": 2
+						}
+					],
+					"weight": 25
+				},
+				{
+					"name": "M9A1",
+					"rarityWeights": [
+						{
+							"value": "COMMON",
+							"weight": 80
+						},			
+						{
+							"value": "UNCOMMON",
+							"weight": 10
+						},			
+						{
+							"value": "RARE",
+							"weight": 5
+						},			
+						{
+							"value": "VERY_RARE",
+							"weight": 3
+						},			
+						{
+							"value": "LEGENDARY",
+							"weight": 2
+						}
+					],
+					"weight": 25
 				}
-			],
-			"lootDropGroupWeights": {
-				"ballistic_main_weapons": [
-					{
-						"value": "assault_rifles",
-						"weight": 25
-					},
-					{
-						"value": "sub_machine_guns",
-						"weight": 25
-					}
-				],
-				"energy_main_weapons": [
-					{
-						"value": "random",
-						"weight": 25
-					},
-					{
-						"value": "jaffa",
-						"weight": 75
-					}
-				]
-			},
-			"rarityWeights": [
-				{
-					"value": "COMMON",
-					"weight": 80
-				},			
-				{
-					"value": "UNCOMMON",
-					"weight": 10
-				},			
-				{
-					"value": "RARE",
-					"weight": 5
-				},			
-				{
-					"value": "VERY_RARE",
-					"weight": 3
-				},			
-				{
-					"value": "LEGENDARY",
-					"weight": 2
-				}
-			]
+			]			
 		}
 	}
 }

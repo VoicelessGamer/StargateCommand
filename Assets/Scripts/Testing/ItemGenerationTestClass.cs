@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Generation;
-using Definitions.Items;
+using Core;
+using Definitions.Weapons;
 
 namespace Assets.Scripts.Testing {
     class ItemGenerationTestClass: MonoBehaviour {
@@ -48,10 +48,14 @@ namespace Assets.Scripts.Testing {
             RandomLootGenerator rig = new RandomLootGenerator();
 
             for (int i = 0; i < totalTests; i++) {
-                ItemDefinition[] generatedItems = rig.generateLoot("jaffa");
+                WeaponDefinition[] generatedItems = rig.generateLoot("jaffa");
 
                 for (int j = 0; j < generatedItems.Length; j++) {
-                    WeaponDefinition w = (WeaponDefinition)generatedItems[j];
+                    WeaponDefinition w = generatedItems[j];
+
+                    if(w == null) {
+                        continue;
+                    }
 
                     if(!rarities.ContainsKey(w.rarity)) {
                         rarities.Add(w.rarity, 1);

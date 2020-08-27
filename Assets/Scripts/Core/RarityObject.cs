@@ -1,4 +1,4 @@
-﻿namespace Definitions.Items {
+﻿namespace Core {
     [System.Serializable]
     public abstract class RarityObject {
         public enum Rarity {

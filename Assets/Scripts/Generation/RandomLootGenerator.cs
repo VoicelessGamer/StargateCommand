@@ -1,30 +1,18 @@
 ﻿using UnityEngine;
-using Definitions.Items;
+using Weapons;
 using Definitions.Enemies;
 using Core;
 using Newtonsoft.Json;
+using Definitions.Weapons;
 
 namespace Generation {
     public class RandomLootGenerator {
 
-        private static string itemDefinitionPath = "Json/LootDefinitions";
         private static string enemyDefinitionPath = "Json/EnemyDefinitions";
-
-        private static System.Random random;
-
-        private LootDefinitions lootDefinitions;
 
         private EnemyDefinitions enemyDefinitions;
 
         public RandomLootGenerator() {
-            random = new System.Random();
-
-            //load the loot definitions into a text asset
-            TextAsset lootDefinitionJson = Resources.Load<TextAsset>(itemDefinitionPath);
-
-            //deserialize the loot definitions into an object
-            lootDefinitions = JsonConvert.DeserializeObject<LootDefinitions>(lootDefinitionJson.text);
-
             //load the enemy definitions into a text asset
             TextAsset enemyDefinitionJson = Resources.Load<TextAsset>(enemyDefinitionPath);
 
@@ -32,7 +20,8 @@ namespace Generation {
             enemyDefinitions = JsonConvert.DeserializeObject<EnemyDefinitions>(enemyDefinitionJson.text);
         }
 
-        public ItemDefinition[] generateLoot(string enemyId) {
+        //temporarily returning weapon list. Need to fix when implementing other drop types
+        public WeaponDefinition[] generateLoot(string enemyId) {
 
             //check the enemy id matches a key in the enemy definitions
             if(!enemyDefinitions.definitions.ContainsKey(enemyId)) {
@@ -43,31 +32,37 @@ namespace Generation {
             EnemyDefinition definition = enemyDefinitions.definitions[enemyId];
 
             //create an array to store the loot drops
-            ItemDefinition[] generatedDefinitions = new ItemDefinition[definition.lootDrops];
+            WeaponDefinition[] generatedDefinitions = new WeaponDefinition[definition.lootDrops];
 
             for (int i = 0; i < definition.lootDrops; i++) {
-                //randomly select the loot drop type such as ballistic_main_weapons
-                string dropType = ((WeightedString)WeightedValueSelector.selectValue(definition.lootDropTypeWeights)).value;
+                //randomly select the loot drop type such as weapon, armour, resource etc.
+                string dropType = ((WeightedString)WeightedValueSelector.selectValue(definition.lootDropTypes)).value;
 
-                //using the selected loot drop type, randomly select the inner group of loot items such as assault_rifles
-                string dropTypeGroup = ((WeightedString)WeightedValueSelector.selectValue(definition.lootDropGroupWeights[dropType])).value;
+                switch(dropType) {
+                    case "WEAPON":
+                        //using the selected loot drop type, randomly select the inner group of loot items such as assault_rifles
+                        WeaponLootDefinition weaponLootDefinition = ((WeaponLootDefinition)WeightedValueSelector.selectValue(definition.weaponWeights));
 
-                //randomly select the rarity type of the loot drop
-                RarityObject.Rarity rarity = ((WeightedRarityObject)WeightedValueSelector.selectValue(definition.rarityWeights)).value;
+                        //randomly select the rarity type of the loot drop
+                        RarityObject.Rarity rarity = ((WeightedRarityObject)WeightedValueSelector.selectValue(weaponLootDefinition.rarityWeights)).value;
 
-                //using the randomly selected keys retrieve a weapon definition
-                WeaponDefinition itemDef = getWeaponItem(dropType, dropTypeGroup, rarity);
+                        //using the randomly selected information retrieve a weapon definition and add to loot list
+                        generatedDefinitions[i] = WeaponUtil.getWeapon(weaponLootDefinition.name, rarity);
+                        break;
+                    case "ARMOUR":
+                        break;
+                    case "INTEL":
+                        break;
+                    case "RESOURCE":
+                        break;
+                    case "NONE":
+                        break;
+                }
 
-                //add the loot to the loot drop list
-                generatedDefinitions[i] = itemDef;
             }
 
             //return the list of awarded loot types
             return generatedDefinitions;
-        }
-
-        public WeaponDefinition getWeaponItem(string dropType, string dropTypeGroup, RarityObject.Rarity rarity) {
-            return ((WeightedWeaponDefinition)WeightedValueSelector.selectValue(lootDefinitions.weaponDefinitions[dropType][dropTypeGroup][rarity])).value;
         }
     }
 }

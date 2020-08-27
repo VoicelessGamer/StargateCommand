@@ -30,8 +30,8 @@ namespace Missions {
         }
 
         public static MissionDetails generateMissionDetails(MissionDefinition missionDefinition, DestinationDetails destinationDetails) {
-            //generate the time it will take to complete this mission
-            long missionTime = new System.Random().Next(5, 75);
+            //generate the time it will take to complete this mission (5 seconds - 2 days)
+            long missionTime = new System.Random().Next(5, 172800);
 
             //generate the pass rate chance of completing this mission
             float passRate = missionDefinition.basePassRate;

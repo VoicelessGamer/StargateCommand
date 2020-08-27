@@ -1,9 +1,7 @@
-﻿using Core;
-
-namespace Definitions.Items {
+﻿namespace Core {
     [System.Serializable]
-    public class WeightedWeaponDefinition : WeightedValue {
-        public WeaponDefinition value { get; set; }
+    public class WeightedRarityObject : WeightedValue {
+        public RarityObject.Rarity value { get; set; }
         
         public long weight { get; set; }
 

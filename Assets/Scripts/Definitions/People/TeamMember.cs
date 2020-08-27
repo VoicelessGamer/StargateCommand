@@ -1,14 +1,14 @@
-﻿using Definitions.Items;
+﻿using Definitions.Weapons;
 
 namespace Definitions.People {
     [System.Serializable]
     public class TeamMember: Member {
 
-        public Weapon primaryWeapon;
+        public WeaponDefinition primaryWeapon;
 
-        public Weapon secondaryWeapon;
+        public WeaponDefinition secondaryWeapon;
 
-        public TeamMember(int rank, string forename, string surname, Weapon primaryWeapon, Weapon secondaryWeapon): base(rank, forename, surname) {
+        public TeamMember(int rank, string forename, string surname, WeaponDefinition primaryWeapon, WeaponDefinition secondaryWeapon): base(rank, forename, surname) {
             this.primaryWeapon = primaryWeapon;
             this.secondaryWeapon = secondaryWeapon;
         }
