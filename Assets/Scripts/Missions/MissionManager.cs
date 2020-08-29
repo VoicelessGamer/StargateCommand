@@ -142,7 +142,7 @@ namespace Missions {
             //add the active mission to storage
             addActiveMission(teamIndex, activeMissionDetails);
 
-            Debug.Log(activeMissionDetails.ToString());
+            //Debug.Log(activeMissionDetails.ToString());
 
             //create a new panel in the active panel view
             createActiveMissionPanel(teamIndex);

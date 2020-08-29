@@ -7,8 +7,8 @@ using People;
 using UnityEngine.UI;
 using Core;
 
-namespace Missions {
-    public class TeamManager : MonoBehaviour {
+namespace Menus {
+    public class MemberSubMenu : MonoBehaviour {
 
         public GameObject teamMemberPanel;
 
@@ -17,7 +17,15 @@ namespace Missions {
         public List<Sprite> rankSprites;
 
         private void Start() {
+            initialiseEmployedMembers();
+        }
 
+        private void initialiseEmployedMembers() {
+            EmployedMembers employedMembers = PeopleUtil.getEmployedMembers();
+
+            foreach(TeamMember member in employedMembers.members) {
+                createTeamMemberPanel(member);
+            }
         }
 
         public void generateNewTeamMember() {
@@ -26,9 +34,11 @@ namespace Missions {
             
             WeaponDefinition secondary = WeaponUtil.getWeapon("M9A1", RarityObject.Rarity.UNCOMMON);
 
-            TeamMember teamMember = new TeamMember(Random.Range(0, 20), "Jack", "O'Neil", primary, secondary);
+            TeamMember teamMember = new TeamMember(Random.Range(0, 20), "Jack", "O'Neil", primary, secondary, primary, secondary);
 
-            Debug.Log(teamMember.ToString());
+            PeopleUtil.saveNewTeamMember(teamMember);
+
+            //Debug.Log(teamMember.ToString());
 
             createTeamMemberPanel(teamMember);
         }
@@ -50,6 +60,12 @@ namespace Missions {
 
             //set the secondary weapon text on the panel
             memberPanel.Find("SecondaryWeapon").GetComponent<Text>().text = teamMember.secondaryWeapon.name + "\n" + teamMember.secondaryWeapon.minimumDamage + " - " + teamMember.secondaryWeapon.maximumDamage;
+
+            //set the primary weapon text on the panel
+            memberPanel.Find("ThrowableWeapon").GetComponent<Text>().text = teamMember.throwableWeapon.name + "\n" + teamMember.throwableWeapon.minimumDamage + " - " + teamMember.throwableWeapon.maximumDamage;
+
+            //set the secondary weapon text on the panel
+            memberPanel.Find("Armour").GetComponent<Text>().text = teamMember.armour.name + "\n" + teamMember.armour.minimumDamage + " - " + teamMember.armour.maximumDamage;
 
             //add a new listener to the selection button for the panel which calls the onMissionActivated function
             //passing in the mission details for this mission
