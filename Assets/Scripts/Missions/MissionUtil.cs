@@ -39,46 +39,5 @@ namespace Missions {
             //generate and return a new set of mission details using the generated data
             return new MissionDetails(missionDefinition, destinationDetails, missionTime, passRate);
         }
-
-        /*public static AvailableMissions getAvailableMissions() {
-            AvailableMissions availableMissions;
-
-            //check the persistent data folder for the available missions json
-            if (!File.Exists(Application.persistentDataPath + availableMissionsPath)) {
-                //file does not exist
-
-                //create a new AvailableMissions object
-                availableMissions = new AvailableMissions();
-
-                //serialize the availableMissions object to a string
-                string availableMissionsJson = JsonConvert.SerializeObject(availableMissions, Formatting.None);
-
-                //write string to a new json file in the persistent data folder
-                File.WriteAllText(Application.persistentDataPath + availableMissionsPath, availableMissionsJson);
-
-                //return the available missions object
-                return availableMissions;
-            }
-
-            //file exists, load text into a string
-            string storedString = File.ReadAllText(Application.persistentDataPath + availableMissionsPath);
-
-            //deserialize and return the string into an AvailableMissions object
-            return JsonConvert.DeserializeObject<AvailableMissions>(storedString);
-        }
-
-        public static void addAvailableMissions(MissionDetails missionDetails) {
-            //retrieve the AvailableMissions object
-            AvailableMissions availableMissions = getAvailableMissions();
-
-            //add details to the AvailableMissions object
-            availableMissions.missions.Add(missionDetails);
-
-            //serialize the availableMissions object to a string
-            string availableMissionsJson = JsonConvert.SerializeObject(availableMissions, Formatting.None);
-
-            //write string to a new json file in the persistent data folder
-            File.WriteAllText(Application.persistentDataPath + availableMissionsPath, availableMissionsJson);
-        }*/
     }
 }

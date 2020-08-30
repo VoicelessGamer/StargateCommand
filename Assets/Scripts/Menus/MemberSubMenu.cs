@@ -52,7 +52,7 @@ namespace Menus {
             string name = PeopleUtil.getRankDetails(teamMember.rank).abbreviation + ". " + teamMember.forename + " " + teamMember.surname;
             memberPanel.Find("Name").GetComponent<Text>().text = name;
 
-            //tting the rank image on the panel
+            //setting the rank image on the panel
             memberPanel.Find("RankImage").GetComponent<Image>().sprite = rankSprites[teamMember.rank];
 
             //set the primary weapon text on the panel
