@@ -1,5 +1,7 @@
 ﻿using Definitions.People;
+using Definitions.Weapons;
 using People;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +18,22 @@ namespace Menus {
 
         public GameObject teamMemberPanel;
 
+        public GameObject itemSwapMenu;
+
+        public Transform canvas;
+
         public List<Sprite> rankSprites;
 
         private Teams teams;
 
+        private EmployedMembers employedMembers;
+
+        //member key mapped to a created panel
+        private Dictionary<string, GameObject> mappedPanels;
+
         private void Start() {
+            employedMembers = PeopleUtil.getEmployedMembers();
+            mappedPanels = new Dictionary<string, GameObject>();
             teams = PeopleUtil.getTeams();
 
             foreach(int teamIndex in teams.teams.Keys) {
@@ -38,27 +51,27 @@ namespace Menus {
                 teamPanel = Instantiate(teamOverviewPanel, Vector3.zero, Quaternion.identity).transform;
 
                 //setting details for member 1
-                TeamMember member = team.teamMembers[0];
+                TeamMember member = employedMembers.members[team.teamMemberKeys[0]];
                 teamPanel.Find("Member1RankImage").GetComponent<Image>().sprite = rankSprites[member.rank];
                 teamPanel.Find("Member1Details").GetComponent<Text>().text = PeopleUtil.getRankDetails(member.rank).abbreviation + "\n" + member.forename + "\n" + member.surname;
 
                 //setting details for member 2
-                if(team.teamMembers.Count > 1) {
-                    member = team.teamMembers[1];
+                if(team.teamMemberKeys.Count > 1) {
+                    member = employedMembers.members[team.teamMemberKeys[1]];
                     teamPanel.Find("Member2RankImage").GetComponent<Image>().sprite = rankSprites[member.rank];
                     teamPanel.Find("Member2Details").GetComponent<Text>().text = PeopleUtil.getRankDetails(member.rank).abbreviation + "\n" + member.forename + "\n" + member.surname;
                 }
 
                 //setting details for member 3
-                if (team.teamMembers.Count > 2) {
-                    member = team.teamMembers[2];
+                if (team.teamMemberKeys.Count > 2) {
+                    member = employedMembers.members[team.teamMemberKeys[2]];
                     teamPanel.Find("Member3RankImage").GetComponent<Image>().sprite = rankSprites[member.rank];
                     teamPanel.Find("Member3Details").GetComponent<Text>().text = PeopleUtil.getRankDetails(member.rank).abbreviation + "\n" + member.forename + "\n" + member.surname;
                 }
 
                 //setting details for member 4
-                if (team.teamMembers.Count > 3) {
-                    member = team.teamMembers[3];
+                if (team.teamMemberKeys.Count > 3) {
+                    member = employedMembers.members[team.teamMemberKeys[3]];
                     teamPanel.Find("Member4RankImage").GetComponent<Image>().sprite = rankSprites[member.rank];
                     teamPanel.Find("Member4Details").GetComponent<Text>().text = PeopleUtil.getRankDetails(member.rank).abbreviation + "\n" + member.forename + "\n" + member.surname;
                 }
@@ -80,17 +93,18 @@ namespace Menus {
         }
 
         public void onDisplayTeamBreakdown(int teamIndex, Team team) {
-            Debug.Log("HIT");
             foreach(Transform transform in teamBreakdownView) {
                 Destroy(transform.gameObject);
             }
 
-            foreach(TeamMember teamMember in team.teamMembers) {
-                createTeamBreakdownPanel(teamMember);
+            mappedPanels = new Dictionary<string, GameObject>();
+
+            foreach (string memberKey in team.teamMemberKeys) {
+                mappedPanels.Add(memberKey, createTeamBreakdownPanel(memberKey, employedMembers.members[memberKey]));
             }
         }
 
-        private void createTeamBreakdownPanel(TeamMember teamMember) {
+        private GameObject createTeamBreakdownPanel(string memberKey, TeamMember teamMember) {
             //instantiating the new team member panel and adding to the view
             Transform memberPanel = Instantiate(teamMemberPanel, Vector3.zero, Quaternion.identity).transform;
             memberPanel.SetParent(teamBreakdownView, false);
@@ -114,9 +128,76 @@ namespace Menus {
             //set the secondary weapon text on the panel
             memberPanel.Find("Armour").GetComponent<Text>().text = teamMember.armour.name + "\n" + teamMember.armour.minimumDamage + " - " + teamMember.armour.maximumDamage;
 
-            //add a new listener to the selection button for the panel which calls the onMissionActivated function
-            //passing in the mission details for this mission
-            //memberPanel.Find("SelectButton").GetComponent<Button>().onClick.AddListener(() => { onMissionActivated(missionDetails, availablePanel.gameObject); });
+            //set the onclick listener for the primary weapon allowing it to be swapped
+            memberPanel.Find("PrimarySelectButton").GetComponent<Button>().onClick.AddListener(() => { onPrimaryWeaponSelect(memberKey); });
+
+            //set the onclick listener for the secondary weapon allowing it to be swapped
+            memberPanel.Find("SecondarySelectButton").GetComponent<Button>().onClick.AddListener(() => { onSecondaryWeaponSelect(memberKey); });
+
+            //return the newly created panel object
+            return memberPanel.gameObject;
+        }
+
+        public void updateTeamMemberPanel(string memberKey) {
+            Transform memberPanel = mappedPanels[memberKey].transform;
+            TeamMember teamMember = employedMembers.members[memberKey];
+
+            //set the primary weapon text on the panel
+            memberPanel.Find("PrimaryWeapon").GetComponent<Text>().text = teamMember.primaryWeapon.name + "\n" + teamMember.primaryWeapon.minimumDamage + " - " + teamMember.primaryWeapon.maximumDamage;
+
+            //set the secondary weapon text on the panel
+            memberPanel.Find("SecondaryWeapon").GetComponent<Text>().text = teamMember.secondaryWeapon.name + "\n" + teamMember.secondaryWeapon.minimumDamage + " - " + teamMember.secondaryWeapon.maximumDamage;
+
+            //set the primary weapon text on the panel
+            memberPanel.Find("ThrowableWeapon").GetComponent<Text>().text = teamMember.throwableWeapon.name + "\n" + teamMember.throwableWeapon.minimumDamage + " - " + teamMember.throwableWeapon.maximumDamage;
+
+            //set the secondary weapon text on the panel
+            memberPanel.Find("Armour").GetComponent<Text>().text = teamMember.armour.name + "\n" + teamMember.armour.minimumDamage + " - " + teamMember.armour.maximumDamage;
+
+        }
+
+        public void onPrimaryWeaponSelect(string memberKey) {
+            //create the item swap panel
+            GameObject itemSwapView = Instantiate(itemSwapMenu);
+            itemSwapView.transform.SetParent(canvas, false);
+
+            //get the team member definition
+            TeamMember teamMember = employedMembers.members[memberKey];
+
+            //create an action that is performed once the swap weapon has been chosen
+            Action<WeaponDefinition> swapPrimary = (weaponDefinition) => {
+                //update the weapon definition on the team member
+                teamMember.primaryWeapon = weaponDefinition;
+                //update the view
+                updateTeamMemberPanel(memberKey);
+                //destroy the item swap panel
+                Destroy(itemSwapView);
+            };
+
+            //setup the panels in the item swap view
+            itemSwapView.GetComponent<ItemSwapMenu>().setupPrimaryMenu(teamMember.primaryWeapon, swapPrimary);
+        }
+
+        public void onSecondaryWeaponSelect(string memberKey) {
+            //create the item swap panel
+            GameObject itemSwapView = Instantiate(itemSwapMenu);
+            itemSwapView.transform.SetParent(canvas, false);
+
+            //get the team member definition
+            TeamMember teamMember = employedMembers.members[memberKey];
+
+            //create an action that is performed once the swap weapon has been chosen
+            Action<WeaponDefinition> swapSecondary = (weaponDefinition) => {
+                //update the weapon definition on the team members
+                teamMember.secondaryWeapon = weaponDefinition;
+                //update the view
+                updateTeamMemberPanel(memberKey);
+                //destroy the item swap panel
+                Destroy(itemSwapView);
+            };
+
+            //setup the panels in the item swap view
+            itemSwapView.GetComponent<ItemSwapMenu>().setupSecondaryMenu(teamMember.secondaryWeapon, swapSecondary);
         }
     }
 }

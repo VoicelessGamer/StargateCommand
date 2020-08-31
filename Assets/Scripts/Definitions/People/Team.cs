@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Definitions.People {
     [System.Serializable]
     public class Team {
         public bool locked;
 
-        public List<TeamMember> teamMembers;
+        public List<string> teamMemberKeys;
 
         public Team() {
             this.locked = true;
-            this.teamMembers = new List<TeamMember>();
+            this.teamMemberKeys = new List<string>();
         }
 
-        public Team(bool locked, List<TeamMember> teamMembers) {
+        public Team(bool locked, List<string> teamMemberKeys) {
             this.locked = locked;
-            this.teamMembers = teamMembers;
+            this.teamMemberKeys = teamMemberKeys;
         }
     }
 }

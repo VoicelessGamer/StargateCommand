@@ -11,11 +11,11 @@
 			},
 			"UNCOMMON":  {
 				"name": "M16A3",
-				"minimumDamage": 2.0,
+				"minimumDamage": 2.5,
 				"maximumDamage": 6.0,
 				"weaponType": 0,
 				"damageType": 0,
-				"rarity": 0
+				"rarity": 1
 			},
 			"RARE":  {
 				"name": "M16A3",

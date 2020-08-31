@@ -1291,6 +1291,9 @@ MonoBehaviour:
     type: 3}
   teamMemberPanel: {fileID: 8084907012373994366, guid: 6d0402ab697b62c479b3d318fce79f1e,
     type: 3}
+  itemSwapMenu: {fileID: 8844214472865287564, guid: aaa6e84bb52e824409bf0d1cc554ce1a,
+    type: 3}
+  canvas: {fileID: 1415618929}
   rankSprites:
   - {fileID: 21300000, guid: 7974dcb817ed34a458b16549a24fdeba, type: 3}
   - {fileID: 21300000, guid: 27271b18e7c058c42ac8c0b7794b24f4, type: 3}
@@ -9906,6 +9909,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bd1116af12681ae439148c67afed337e, type: 3}
   - {fileID: 21300000, guid: a09b6c34bb16633419a7a296554505d4, type: 3}
   - {fileID: 21300000, guid: c1f5a1da907317a42a93110e99f2f157, type: 3}
+  itemSwapMenu: {fileID: 8844214472865287564, guid: aaa6e84bb52e824409bf0d1cc554ce1a,
+    type: 3}
+  canvas: {fileID: 1415618929}
 --- !u!1 &2090574564
 GameObject:
   m_ObjectHideFlags: 0

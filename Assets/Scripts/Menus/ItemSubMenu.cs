@@ -9,13 +9,16 @@ namespace Menus {
         public GameObject itemPanel;
 
         //public void addPanel(Sprite icon, string name, string info) {
-        public void addPanel(string name, string info) {
+        public void addPanel(string name, string info, Color colour) {
             //instantiating the new item panel and adding to the view
             Transform item = Instantiate(itemPanel, Vector3.zero, Quaternion.identity).transform;
             item.SetParent(itemView, false);
 
             //setting the icon image on the panel
             //item.Find("icon").GetComponent<Image>().sprite = icon;
+
+            //set background colour
+            item.Find("Background").GetComponent<Image>().color = colour;
 
             //set the name text on the panel
             item.Find("Name").GetComponent<Text>().text = name;

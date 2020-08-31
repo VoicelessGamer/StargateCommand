@@ -4,13 +4,13 @@ namespace Definitions.People {
     [System.Serializable]
     public class EmployedMembers {
 
-        public List<TeamMember> members;
+        public Dictionary<string, TeamMember> members;
 
         public EmployedMembers() {
-            this.members = new List<TeamMember>();
+            this.members = new Dictionary<string, TeamMember>();
         }
 
-        public EmployedMembers(List<TeamMember> members) {
+        public EmployedMembers(Dictionary<string, TeamMember> members) {
             this.members = members;
         }
     }

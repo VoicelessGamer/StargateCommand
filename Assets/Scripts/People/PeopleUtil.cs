@@ -41,12 +41,12 @@ namespace People {
             return employedMembers;
         }
 
-        public static void saveNewTeamMember(TeamMember teamMember) {
+        public static void saveNewTeamMember(string memberId, TeamMember teamMember) {
             //retrieve the employed members from storage
             EmployedMembers employedMembers = getEmployedMembers();
 
             //add the new member to the list
-            employedMembers.members.Add(teamMember);
+            employedMembers.members.Add(memberId, teamMember);
 
             //serialize the EmployedMembers object to a string
             string employedMembersJson = JsonConvert.SerializeObject(employedMembers, Formatting.None);

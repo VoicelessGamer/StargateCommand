@@ -23,7 +23,7 @@ namespace Menus {
         public void addPrimaryWeapon() {
             WeaponDefinition weapon;
                 
-            int i = (int)Mathf.Round(Random.Range(0, 4));
+            int i = (int)Mathf.Round(Random.Range(0, 5));
 
             switch(i) {
                 case 0:
@@ -44,7 +44,7 @@ namespace Menus {
                     break;
             }
 
-            primaryWeaponSubMenu.addPanel(weapon.name, weapon.minimumDamage + " - " + weapon.maximumDamage);
+            primaryWeaponSubMenu.addPanel(weapon.name, weapon.minimumDamage + " - " + weapon.maximumDamage, ItemUtil.getRarityColour(weapon.rarity));
 
             this.inventory.primaryWeaponDefinitions.Add(weapon);
 
@@ -54,7 +54,7 @@ namespace Menus {
         public void addSecondaryWeapon() {
             WeaponDefinition weapon;
 
-            int i = (int)Mathf.Round(Random.Range(0, 4));
+            int i = (int)Mathf.Round(Random.Range(0, 5));
 
             switch (i) {
                 case 0:
@@ -75,7 +75,7 @@ namespace Menus {
                     break;
             }
 
-            secondaryWeaponSubMenu.addPanel(weapon.name, weapon.minimumDamage + " - " + weapon.maximumDamage);
+            secondaryWeaponSubMenu.addPanel(weapon.name, weapon.minimumDamage + " - " + weapon.maximumDamage, ItemUtil.getRarityColour(weapon.rarity));
 
             this.inventory.secondaryWeaponDefinitions.Add(weapon);
 

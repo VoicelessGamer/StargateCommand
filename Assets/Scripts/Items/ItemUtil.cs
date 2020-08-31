@@ -2,10 +2,33 @@
 using Newtonsoft.Json;
 using Definitions.Items;
 using System.IO;
+using System.Collections.Generic;
+using Core;
 
 namespace Items {
     public static class ItemUtil {
         private static string inventoryPath = "/Inventory.json";
+
+        public static Color getRarityColour(RarityObject.Rarity rarity) {
+            switch (rarity) {
+                case RarityObject.Rarity.LEGENDARY:
+                    //orange
+                    return new Color(0.941f, 0.553f, 0f);
+                case RarityObject.Rarity.VERY_RARE:
+                    //purple
+                    return new Color(0.569f, 0.196f, 0.784f);
+                case RarityObject.Rarity.RARE:
+                    //blue
+                    return new Color(0.184f, 0.47f, 1f);
+                case RarityObject.Rarity.UNCOMMON:
+                    //green
+                    return new Color(0.235f, 0.816f, 0.0143f);
+                case RarityObject.Rarity.COMMON:
+                default:
+                    //grey
+                    return new Color(0.314f, 0.314f, 0.314f);
+            }
+        }
 
         public static Inventory getInventory() {
             Inventory inventory;
