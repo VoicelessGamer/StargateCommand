@@ -2,10 +2,15 @@
 using Newtonsoft.Json;
 using Definitions.People;
 using System.IO;
+using Definitions.Weapons;
+using Weapons;
+using Core;
 
 namespace People {
     public static class PeopleUtil {
         private static string ranksFilePath = "Json/Ranks";
+
+        private static string memberNamesPath = "Json/MemberNames";
 
         private static string employedMemberPath = "/EmployedMembers.json";
 
@@ -19,6 +24,29 @@ namespace People {
             Ranks ranks = JsonConvert.DeserializeObject<Ranks>(ranksJson.text);
 
             return ranks.ranks[rankIndex];
+        }
+        public static TeamMember generateNewTeamMember() {
+
+            WeaponDefinition primary = WeaponUtil.getWeapon("M16A3", RarityObject.Rarity.COMMON);
+
+            WeaponDefinition secondary = WeaponUtil.getWeapon("M9A1", RarityObject.Rarity.UNCOMMON);
+
+            //load the name json object
+            TextAsset namesJson = Resources.Load<TextAsset>(memberNamesPath);
+
+            //deserialize the name json into an object
+            MemberNames memberNames = JsonConvert.DeserializeObject<MemberNames>(namesJson.text);
+
+            string fName;
+            if(Random.Range(0, 1) < 0.5) {
+                fName = memberNames.maleNames[Random.Range(0, memberNames.maleNames.Count)];
+            } else {
+                fName = memberNames.femaleNames[Random.Range(0, memberNames.maleNames.Count)];
+            }
+
+            string sName = memberNames.surnames[Random.Range(0, memberNames.maleNames.Count)];
+
+            return new TeamMember(Random.Range(0, 15), fName, sName, primary, secondary, primary, secondary);            
         }
 
         public static EmployedMembers getEmployedMembers() {

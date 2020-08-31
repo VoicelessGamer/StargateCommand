@@ -40,12 +40,7 @@ namespace Menus {
         }
 
         public void generateNewTeamMember() {
-
-            WeaponDefinition primary = WeaponUtil.getWeapon("M16A3", RarityObject.Rarity.COMMON);
-            
-            WeaponDefinition secondary = WeaponUtil.getWeapon("M9A1", RarityObject.Rarity.UNCOMMON);
-
-            TeamMember teamMember = new TeamMember(UnityEngine.Random.Range(0, 20), "Jack", "O'Neil", primary, secondary, primary, secondary);
+            TeamMember teamMember = PeopleUtil.generateNewTeamMember();
 
             string memberId = "ID-" + DateTime.UtcNow.ToString() + UnityEngine.Random.Range(0, 1000000000);
 
