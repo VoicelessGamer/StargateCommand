@@ -17,8 +17,10 @@ namespace Menus {
         public GameObject lockedTeamOverviewPanel;
 
         public GameObject teamMemberPanel;
+        public GameObject addMemberButton;
 
         public GameObject itemSwapMenu;
+        public GameObject teamMemberSelectionMenu;
 
         public Transform canvas;
 
@@ -99,9 +101,44 @@ namespace Menus {
 
             mappedPanels = new Dictionary<string, GameObject>();
 
-            foreach (string memberKey in team.teamMemberKeys) {
-                mappedPanels.Add(memberKey, createTeamBreakdownPanel(memberKey, employedMembers.members[memberKey]));
+            for(int i = 0; i < PeopleUtil.maxMembersPerTeam; i++) {
+                if(i < team.teamMemberKeys.Count) {
+                    string memberKey = team.teamMemberKeys[i];
+                    mappedPanels.Add(memberKey, createTeamBreakdownPanel(memberKey, employedMembers.members[memberKey]));
+                } else {
+                    createAddMemberPanel(teamIndex);
+                }
             }
+        }
+
+        private void createAddMemberPanel(int teamIndex) {
+            //instantiating the new add member panel and adding to the view
+            Transform addMemberPanel = Instantiate(addMemberButton, Vector3.zero, Quaternion.identity).transform;
+            addMemberPanel.SetParent(teamBreakdownView, false);
+
+            //set the onclick listener to select a new member
+            addMemberPanel.GetComponent<Button>().onClick.AddListener(() => { onSelectMember(teamIndex, addMemberPanel); });
+        }
+
+        public void onSelectMember(int teamIndex, Transform addMemberPanel) {
+            //create the member selection panel
+            GameObject teamMemberSelectionView = Instantiate(teamMemberSelectionMenu);
+            teamMemberSelectionView.transform.SetParent(canvas, false);
+
+            //create an action that is performed once the new member has been chosen
+            Action<string> selectMember = (memberKey) => {
+                //update the weapon definition on the team member
+                teams.teams[teamIndex].teamMemberKeys.Add(memberKey);
+                //update the view
+                createTeamBreakdownPanel(memberKey, employedMembers.members[memberKey]);
+                //destroy the member seection panel
+                Destroy(teamMemberSelectionView);
+                //destroy the add panel
+                Destroy(addMemberPanel.gameObject);
+            };
+
+            //setup the panels in the member selection view
+            teamMemberSelectionView.GetComponent<TeamMemberSelectionMenu>().setupMenu(employedMembers, selectMember);
         }
 
         private GameObject createTeamBreakdownPanel(string memberKey, TeamMember teamMember) {

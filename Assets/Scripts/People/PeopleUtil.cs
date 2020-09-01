@@ -16,6 +16,8 @@ namespace People {
 
         private static string teamsPath = "/Teams.json";
 
+        public static int maxMembersPerTeam = 4;
+
         public static Rank getRankDetails(int rankIndex) {
             //load the ranks json object
             TextAsset ranksJson = Resources.Load<TextAsset>(ranksFilePath);

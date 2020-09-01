@@ -1289,9 +1289,13 @@ MonoBehaviour:
     type: 3}
   lockedTeamOverviewPanel: {fileID: 2791061618789209029, guid: e2b06c79245cb1d48a609c912ef12a49,
     type: 3}
-  teamMemberPanel: {fileID: 8084907012373994366, guid: 6d0402ab697b62c479b3d318fce79f1e,
+  teamMemberPanel: {fileID: 4607915168535186389, guid: 1722e796d107fe743839fe3a5626f28d,
+    type: 3}
+  addMemberButton: {fileID: 2483777700015176119, guid: f69826a4fa5d0964b946b6aade5690e8,
     type: 3}
   itemSwapMenu: {fileID: 8844214472865287564, guid: aaa6e84bb52e824409bf0d1cc554ce1a,
+    type: 3}
+  teamMemberSelectionMenu: {fileID: 3518550991072046151, guid: de0f19f68b3bc4545a5f4c07e54a584a,
     type: 3}
   canvas: {fileID: 1415618929}
   rankSprites:
@@ -3518,7 +3522,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -341.3}
-  m_SizeDelta: {x: 800, y: 530}
+  m_SizeDelta: {x: 404, y: 530}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &755748599
 MonoBehaviour:
@@ -4827,7 +4831,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000076293945, y: -0.00012296737}
-  m_SizeDelta: {x: -783, y: 0}
+  m_SizeDelta: {x: -387, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1022644154
 MonoBehaviour:
@@ -6902,10 +6906,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1431794063}
-  - component: {fileID: 1431794065}
   - component: {fileID: 1431794064}
+  - component: {fileID: 1431794065}
   m_Layer: 5
-  m_Name: TestContent
+  m_Name: BreakdownContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6928,7 +6932,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000010472723, y: -0.00012296737}
-  m_SizeDelta: {x: -783, y: 0}
+  m_SizeDelta: {x: -3, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1431794064
 MonoBehaviour:
@@ -6953,7 +6957,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1431794062}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -6962,14 +6966,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 385, y: 256}
+  m_Spacing: {x: 10, y: 10}
+  m_Constraint: 1
+  m_ConstraintCount: 2
 --- !u!1 &1439642188
 GameObject:
   m_ObjectHideFlags: 0
@@ -7964,7 +7966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
+  m_ShowMaskGraphic: 1
 --- !u!114 &1570301784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9885,7 +9887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af031188fb1158459d4096623f6b73e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamMemberPanel: {fileID: 8084907012373994366, guid: 6d0402ab697b62c479b3d318fce79f1e,
+  teamMemberPanel: {fileID: 4607915168535186389, guid: 1722e796d107fe743839fe3a5626f28d,
     type: 3}
   teamMemberView: {fileID: 1022644153}
   rankSprites:
